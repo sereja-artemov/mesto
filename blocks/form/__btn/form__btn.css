@@ -1,0 +1,18 @@
+.form__btn {
+  margin-top: 45px;
+  width: 100%;
+  border: none;
+  padding: 14px 28px;
+  text-align: center;
+  background-color: #000;
+  color: #fff;
+}
+.form__btn:hover {
+  background-color: #313131;
+  cursor: pointer;
+}
+@media screen and (min-width: 425px) {
+  .popup__container {
+    font-size: 18px;
+  }
+}

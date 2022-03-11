@@ -1,0 +1,36 @@
+.btn_add {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  max-width: 282px;
+  height: 50px;
+  border: 2px solid #fff;
+  border-radius: 2px;
+}
+.btn_add:hover {
+  opacity: .6;
+}
+.btn_add::before,
+.btn_add::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  content: "";
+  width: 16px;
+  height: 2px;
+  background-color: #fff;
+}
+.btn_add::before {
+  transform: rotate(90deg) translateY(8px);
+
+}
+.btn_add::after {
+  transform: rotate(0) translateX(-50%);
+}
+
+@media screen and (min-width: 1280px) {
+  .add-btn {
+    max-width: 150px;
+  }
+}

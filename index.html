@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Mesto</title>
+</head>
+<body>
+  <div class="root">
+    <header class="header container-fluid">
+      <a href="#" class="header__logo">
+        <img src="./images/mesto-logo.svg" alt="логотип mesto russia" class="header__logo-img">
+      </a>
+    </header>
+    <main>
+      <section class="profile container">
+        <div class="profile__user">
+          <img src="./images/user-avatar.jpg" alt="Жак-Ив Кусто аватар" class="profile__img">
+          <div class="profile__info">
+            <div class="profile__name-wrapper">
+              <h3 class="profile__name">Жак-Ив Кусто</h3>
+              <a href="#" class="btn btn_popup btn_edit"></a>
+            </div>
+            <p class="profile__about">Исследователь океана</p>
+          </div>
+        </div>
+        <a href="#" class="btn btn_popup btn_add"></a>
+      </section>
+      <section class="cards container">
+        <ul class="cards__wrapper">
+          <li class="cards__item">
+            <img src="./images/cards/kursk.jpg" alt="город Курск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Курск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+          <li class="cards__item">
+            <img src="./images/cards/dubaisk.jpg" alt="Дубайск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Дубайск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+          <li class="cards__item">
+            <img src="./images/cards/karachaevsk.jpg" alt="Карачаевск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Карачаевск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+          <li class="cards__item">
+            <img src="./images/cards/kursk.jpg" alt="Курск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Курск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+          <li class="cards__item">
+            <img src="./images/cards/dubaisk.jpg" alt="Дубайск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Дубайск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+          <li class="cards__item">
+            <img src="./images/cards/karachaevsk.jpg" alt="Карачаевск" class="cards__image">
+            <div class="cards__content">
+              <h3 class="cards__title">Карачаевск</h3>
+              <span class="cards__like"></span>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer class="footer container">
+      <p class="footer__copyright">© 2022 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <form action="POST" class="form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <input class="form__item" type="text" name="name" id="name" placeholder="Имя">
+          <input class="form__item" type="text" name="about" id="about" placeholder="О себе">
+          <input class="form__btn" type="submit" value="Сохранить">
+         </form>
+         <span class="popup__close-btn"></span>
+      </div>
+    </div>
+  </div>
+  <script src="./js/main.js"></script>
+</body>
+</html>

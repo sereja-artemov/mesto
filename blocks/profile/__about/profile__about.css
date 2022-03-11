@@ -1,0 +1,10 @@
+.profile__about {
+  margin: 0;
+  margin-bottom: 36px;
+  line-height: 1.21;
+}
+@media screen and (min-width: 1280px) {
+  .profile__about {
+    margin-bottom: 0;
+  }
+}

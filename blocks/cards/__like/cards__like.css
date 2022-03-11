@@ -1,0 +1,21 @@
+.cards__like {
+  position: absolute;
+  top: 50%;
+  right: 22px;
+  transform: translateY(-50%);
+  display: inline-block;
+  width: 22px;
+  height: 19px;
+  background-image: url(../../../images/like-icon-stroke.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.cards__like:hover {
+  opacity: .5;
+  cursor: pointer;
+}
+.cards__like:active {
+  background-image: url(../../../images/like-icon-fill.svg);
+  opacity: 1;
+}

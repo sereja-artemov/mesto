@@ -1,0 +1,29 @@
+.btn_edit {
+  box-sizing: border-box;
+  display: inline-block;
+  position: absolute;
+  right: 18px;
+  bottom: 7px;
+  transform: translatex(100%);
+
+  width: 18px;
+  height: 18px;
+  background-image: url(../../../images/edit-pen.svg);
+  background-size: 7.5px auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #fff;
+}
+.btn_edit:hover {
+  opacity: .6;
+}
+
+@media screen and (min-width: 1280px) {
+  .btn_edit {
+    right: 24px;
+    width: 24px;
+    height: 24px;
+    bottom: 8px;
+    background-size: 10px auto;
+  }
+}
