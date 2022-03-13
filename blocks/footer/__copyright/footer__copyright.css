@@ -4,8 +4,9 @@
   line-height: 1.2;
   color: #545454;
 }
-@media screen and (max-width: 425px) {
+
+@media screen and (min-width: 1280px) {
   .footer__copyright {
-    padding-left: 20px;
+    font-size: 18px;
   }
 }
