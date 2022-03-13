@@ -1,10 +1,6 @@
 .btn_edit {
   box-sizing: border-box;
   display: inline-block;
-  position: absolute;
-  right: 18px;
-  bottom: 7px;
-  transform: translateX(100%);
 
   width: 18px;
   height: 18px;
