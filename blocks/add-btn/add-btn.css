@@ -7,8 +7,10 @@
   height: 50px;
   border: 2px solid #fff;
   border-radius: 2px;
+  background-color: transparent;
 }
 .add-btn:hover {
+  cursor: pointer;
   opacity: .6;
 }
 .add-btn::before,

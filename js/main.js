@@ -7,10 +7,18 @@ let fieldName = document.querySelector('.form__item[id="name"]');
 let fieldAbout = document.querySelector('.form__item[id="about"]');
 let profileForm = document.querySelector('.form');
 
+function closePopup() {
+  popup.classList.remove('popup_opened');
+};
+
+function openPopup() {
+  popup.classList.add('popup_opened');
+};
+
 // открываем окно по клику на кнопку редактирования
 editBtn.addEventListener('click', function(event) {
   event.preventDefault();
-  popup.classList.add('popup_opened');
+  openPopup();
   // заполняем поля формы данными из профиля
   fieldName.value = profileName.textContent;
   fieldAbout.value = profileAbout.textContent;
@@ -18,22 +26,12 @@ editBtn.addEventListener('click', function(event) {
 // закрываем окно по клику на крестик
 closeBtn.addEventListener('click', function(event) {
   event.preventDefault();
-  popup.classList.remove('popup_opened');
-  profileForm.reset();
-
-});
-// закрываем окно по клику на escape
-window.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    if (popup.classList.contains('popup_opened')) {
-      popup.classList.remove('popup_opened');
-    }
-  }
+  closePopup();
 });
 
 profileForm.addEventListener('submit', function (event) {
   event.preventDefault();
   profileName.textContent = fieldName.value;
   profileAbout.textContent = fieldAbout.value;
-  popup.classList.remove('popup_opened');
+  closePopup();
 });
