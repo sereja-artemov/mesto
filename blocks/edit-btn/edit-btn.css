@@ -1,4 +1,4 @@
-.btn_edit {
+.edit-btn {
   box-sizing: border-box;
   display: inline-block;
 
@@ -10,12 +10,12 @@
   background-position: center center;
   border: 1px solid #fff;
 }
-.btn_edit:hover {
+.edit-btn:hover {
   opacity: .6;
 }
 
 @media screen and (min-width: 1280px) {
-  .btn_edit {
+  .edit-btn {
     right: 24px;
     width: 24px;
     height: 24px;
