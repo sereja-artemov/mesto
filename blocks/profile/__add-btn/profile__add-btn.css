@@ -1,4 +1,4 @@
-.add-btn {
+.profile__add-btn {
   position: relative;
   box-sizing: border-box;
   display: inline-block;
@@ -9,12 +9,12 @@
   border-radius: 2px;
   background-color: transparent;
 }
-.add-btn:hover {
+.profile__add-btn:hover {
   cursor: pointer;
   opacity: .6;
 }
-.add-btn::before,
-.add-btn::after {
+.profile__add-btn::before,
+.profile__add-btn::after {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -23,16 +23,16 @@
   height: 2px;
   background-color: #fff;
 }
-.add-btn::before {
+.profile__add-btn::before {
   transform: rotate(90deg) translateY(8px);
 
 }
-.add-btn::after {
+.profile__add-btn::after {
   transform: rotate(0) translateX(-50%);
 }
 
 @media screen and (min-width: 1280px) {
-  .add-btn {
+  .profile__add-btn {
     max-width: 150px;
   }
 }
