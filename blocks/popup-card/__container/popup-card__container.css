@@ -1,0 +1,7 @@
+.popup-card__container {
+  position: relative;
+  max-width: none;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
