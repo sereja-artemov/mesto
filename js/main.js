@@ -15,7 +15,11 @@ const placeAbout = document.querySelector('#place-about');
 const placeForm = document.querySelector('#form_type_place');
 const cardsWrapper = document.querySelector('.cards__wrapper');
 const delBtn = document.querySelector('.cards__trash-btn');
-
+// Попап картинки
+const popupCard = document.querySelector('.popup-card');
+const popupCardImageItem = document.querySelector('.popup-card__img');
+const popupCardCloseBtn = document.querySelector('.popup-card__close-btn');
+const popupCardName = document.querySelector('.popup-card__place-name');
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -67,10 +71,12 @@ function createCard(imgLink, titleText) {
   const cardTitle = cardItem.querySelector('.cards__title');
   cardTitle.innerText = titleText;
 
+  //лайк карточки
   const likeItem = cardItem.querySelector('.cards__like');
-
   likeItem.addEventListener('click', likeCard);
 
+  //открытие окна с картинкой
+   cardImage.addEventListener('click', openPopupCard);
   // delCard();
 
   return cardItem;
@@ -105,7 +111,7 @@ function addCard(event) {
 
 
 // Лайк карточки
-function likeCard() {
+function likeCard(event) {
   event.target.classList.toggle('cards__like_active');
 }
 
@@ -119,15 +125,11 @@ function likeCard() {
 // }
 
 
-  // Попап картинки
-  const popupCard = document.querySelector('.popup-card');
-  const popupCardImage = document.querySelector('.cards__image');
-  const popupCardImageItem = document.querySelector('.popup-card__img');
-  const popupCardCloseBtn = document.querySelector('.popup-card__close-btn');
-  const popupCardName = document.querySelector('.popup-card__place-name');
-  const CardsItem = document.querySelector('.cards__item');
-  
-  placeForm.addEventListener('submit', addCard);
+
+  // const popupCardImage = document.querySelector('.cards__image');
+  // const CardsItem = document.querySelector('.cards__item');
+
+  //открытие окна с картинкой
   function openPopupCard(event) {
     const cardItem = event.target.closest('.cards__item');
     const cardTitle = cardItem.querySelector('.cards__title');
@@ -136,4 +138,5 @@ function likeCard() {
     popupCardImageItem.setAttribute('src', imgSrc);
     openPopup(popupCard);
   }
-  popupCardImage.addEventListener('click', openPopupCard);
+ 
+  placeForm.addEventListener('submit', addCard);
