@@ -4,3 +4,6 @@
   object-fit: cover;
   object-position: center center;
 }
+.cards__image:hover {
+  cursor: pointer;
+}

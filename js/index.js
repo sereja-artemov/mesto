@@ -64,15 +64,14 @@ profileForm.addEventListener('submit', closeProfileEditPopup);
 placeForm.addEventListener('submit', addCard);
 
 
-
-
+const cardTemplate = document.querySelector('#cards__item').content;
 // Добавляем html
 function createCard(imgLink, titleText) {
-  const cardTemplate = document.querySelector('#cards__item').content;
   const cardItem = cardTemplate.querySelector('.cards__item').cloneNode(true);
 
   const cardImage = cardItem.querySelector('.cards__image');
   cardImage.setAttribute('src', imgLink);
+  cardImage.setAttribute('alt', titleText);
   const cardTitle = cardItem.querySelector('.cards__title');
   cardTitle.innerText = titleText;
 
