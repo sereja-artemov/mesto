@@ -55,13 +55,7 @@ function closeProfileEditPopup(event) {
   closePopup(popupEdit);
 }
 
-// открываем окно по клику на кнопку редактирования
-editBtn.addEventListener('click', openProfileEditPopup);
-// открываем окно по клику на кнопку добавления
-addBtn.addEventListener('click', openPlacePopup);
-// закрываем окно после отправки формы
-profileForm.addEventListener('submit', closeProfileEditPopup);
-placeForm.addEventListener('submit', addCard);
+
 
 
 const cardTemplate = document.querySelector('#cards__item').content;
@@ -118,6 +112,14 @@ function openPopupCard(event) {
   popupCardName.textContent = cardTitle.textContent;
   const imgSrc = event.target.closest('.cards__image').src;
   popupCardImageItem.setAttribute('src', imgSrc);
+  popupCardImageItem.setAttribute('alt', cardTitle.textContent);
   openPopup(popupCard);
 }
 
+// открываем окно по клику на кнопку редактирования
+editBtn.addEventListener('click', openProfileEditPopup);
+// открываем окно по клику на кнопку добавления
+addBtn.addEventListener('click', openPlacePopup);
+// закрываем окно после отправки формы
+profileForm.addEventListener('submit', closeProfileEditPopup);
+placeForm.addEventListener('submit', addCard);
