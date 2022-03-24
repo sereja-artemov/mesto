@@ -48,6 +48,12 @@ function openPlacePopup() {
   openPopup(popupPlace);
 }
 
+function closeProfileEditPopup(event) {
+  event.preventDefault();
+  profileName.textContent = fieldName.value;
+  profileAbout.textContent = fieldAbout.value;
+  closePopup(popupEdit);
+}
 
 // открываем окно по клику на кнопку редактирования
 editBtn.addEventListener('click', openProfileEditPopup);
@@ -55,6 +61,8 @@ editBtn.addEventListener('click', openProfileEditPopup);
 addBtn.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
 profileForm.addEventListener('submit', closeProfileEditPopup);
+placeForm.addEventListener('submit', addCard);
+
 
 
 
@@ -94,6 +102,9 @@ function addCard(event) {
   event.preventDefault();
   const card = createCard(placeAbout.value, placeName.value);
   cardsWrapper.prepend(card);
+  closePopup(popupPlace);
+  placeAbout.value = '';
+  placeName.value = '';
 };
 
 // Лайк карточки
@@ -111,9 +122,3 @@ function openPopupCard(event) {
   openPopup(popupCard);
 }
 
-function closeProfileEditPopup(event) {
-  event.preventDefault();
-  profileName.textContent = fieldName.value;
-  profileAbout.textContent = fieldAbout.value;
-  closePopup(popupEdit);
-}
