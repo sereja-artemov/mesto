@@ -48,15 +48,12 @@ function openPlacePopup() {
   openPopup(popupPlace);
 }
 
-function closeProfileEditPopup(event) {
+function handleProfileFormSubmit(event) {
   event.preventDefault();
   profileName.textContent = fieldName.value;
   profileAbout.textContent = fieldAbout.value;
   closePopup(popupEdit);
 }
-
-
-
 
 const cardTemplate = document.querySelector('#cards__item').content;
 // Добавляем html
@@ -67,7 +64,7 @@ function createCard(imgLink, titleText) {
   cardImage.setAttribute('src', imgLink);
   cardImage.setAttribute('alt', titleText);
   const cardTitle = cardItem.querySelector('.cards__title');
-  cardTitle.innerText = titleText;
+  cardTitle.textContent = titleText;
 
   //лайк карточки
   const likeItem = cardItem.querySelector('.cards__like');
@@ -96,8 +93,7 @@ function addCard(event) {
   const card = createCard(placeAbout.value, placeName.value);
   cardsWrapper.prepend(card);
   closePopup(popupPlace);
-  placeAbout.value = '';
-  placeName.value = '';
+  placeForm.reset();
 };
 
 // Лайк карточки
@@ -121,5 +117,5 @@ editBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 addBtn.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
-profileForm.addEventListener('submit', closeProfileEditPopup);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', addCard);
