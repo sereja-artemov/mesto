@@ -41,8 +41,8 @@
       <div class="popup__container">
         <form action="POST" name="profile-edit" class="form">
           <h2 class="form__title">Редактировать профиль</h2>
-          <input class="form__item" type="text" name="name" id="name" placeholder="Имя">
-          <input class="form__item" type="text" name="about" id="about" placeholder="О себе">
+          <div class="form__item-wrapper" for="name"><input class="form__item" type="text" name="name" id="name" placeholder="Имя"><p class="form__error-msg">Ошибка</p></div>
+          <div class="form__item-wrapper" for="about"><input class="form__item" type="text" name="about" id="about" placeholder="О себе"></div>
           <input class="form__btn form__btn_status_disabled" type="submit" value="Сохранить">
          </form>
          <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
