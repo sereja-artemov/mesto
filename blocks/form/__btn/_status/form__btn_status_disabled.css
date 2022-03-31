@@ -1,0 +1,13 @@
+.form__btn_status_disabled {
+  background-color: inherit;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  opacity: .2;
+  color: #000000;
+  cursor: not-allowed;
+}
+.form__btn_status_disabled:hover {
+  opacity: .2;
+  cursor: not-allowed;
+}
+
