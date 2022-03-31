@@ -31,7 +31,14 @@ function openPopup(popup) {
 
 // закрываем любое окно по клику на крестик
 closeBtn.forEach(element => {
-  element.addEventListener('click', function (event) {
+  element.addEventListener('click', (event) => {
+    const popup = event.target.closest('.popup');
+    closePopup(popup);
+  });
+});
+// закрываем любое окно по клику на оверлей
+popups.forEach(element => {
+  element.addEventListener('click', (event) => {
     const popup = event.target.closest('.popup');
     closePopup(popup);
   });
