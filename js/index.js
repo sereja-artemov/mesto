@@ -43,6 +43,16 @@ popups.forEach(element => {
     closePopup(popup);
   });
 });
+// закрываем окно по клику на escape
+window.addEventListener('keydown', function (event) {
+  if (event.key === 'Escape') {
+    popups.forEach(popup => {
+      if (popup.classList.contains('popup_opened')) {
+        closePopup(popup);
+      }
+    });    
+  }
+});
 
 function openProfileEditPopup() {
   openPopup(popupEdit);
