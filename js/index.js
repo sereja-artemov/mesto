@@ -39,8 +39,10 @@ closeBtn.forEach(element => {
 // закрываем любое окно по клику на оверлей
 popups.forEach(element => {
   element.addEventListener('click', (event) => {
-    const popup = event.target.closest('.popup');
-    closePopup(popup);
+    if (event.target.classList.contains('popup')) {
+      const popup = event.target.closest('.popup');
+      closePopup(popup);
+    }
   });
 });
 // закрываем окно по клику на escape
@@ -50,7 +52,7 @@ window.addEventListener('keydown', function (event) {
       if (popup.classList.contains('popup_opened')) {
         closePopup(popup);
       }
-    });    
+    });
   }
 });
 
@@ -76,7 +78,6 @@ const cardTemplate = document.querySelector('#cards__item').content;
 // Добавляем html
 function createCard(imgLink, titleText) {
   const cardItem = cardTemplate.querySelector('.cards__item').cloneNode(true);
-
   const cardImage = cardItem.querySelector('.cards__image');
   cardImage.setAttribute('src', imgLink);
   cardImage.setAttribute('alt', titleText);
@@ -86,14 +87,11 @@ function createCard(imgLink, titleText) {
   //лайк карточки
   const likeItem = cardItem.querySelector('.cards__like');
   likeItem.addEventListener('click', likeCard);
-
   //открытие окна с картинкой
   cardImage.addEventListener('click', openPopupCard);
   //удаление карточки
   const delBtn = cardItem.querySelector('.cards__trash-btn');
-  delBtn.addEventListener('click', () => {
-    cardItem.remove();
-  });
+  delBtn.addEventListener('click', () => cardItem.remove());
 
   return cardItem;
 }
