@@ -39,22 +39,28 @@
     </footer>
     <div id="popup-edit" class="popup">
       <div class="popup__container">
-        <form action="POST" name="profile-edit" class="form">
+        <form action="POST" name="profile-edit" class="form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
-          <div class="form__item-wrapper" for="name"><input class="form__item" type="text" name="name" id="name" placeholder="Имя"><p class="form__error-msg">Ошибка</p></div>
-          <div class="form__item-wrapper" for="about"><input class="form__item" type="text" name="about" id="about" placeholder="О себе"></div>
-          <input class="form__btn form__btn_status_disabled" type="submit" value="Сохранить">
+          <div class="form__item-wrapper" for="name"><input class="form__item" type="text" name="name" id="name" placeholder="Имя" minlength="2" maxlength="40" required><span class="form__error-msg name-error"></span></div>
+          <div class="form__item-wrapper" for="about"><input class="form__item" type="text" name="about" id="about" placeholder="О себе" minlength="2" maxlength="200" required><span class="form__error-msg about-error"></span></div>
+          <input class="form__btn" type="submit" value="Сохранить">
          </form>
          <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
       </div>
     </div>
     <div id="popup-place" class="popup">
       <div class="popup__container">
-        <form id="form_type_place" action="POST" class="form">
+        <form id="form_type_place" action="POST" class="form" novalidate>
           <h2 class="form__title">Новое место</h2>
-          <input class="form__item" type="text" name="name" id="place-name" placeholder="Название">
-          <input class="form__item" type="text" name="about" id="place-about" placeholder="Ссылка на картинку">
-          <input class="form__btn form__btn_status_disabled" type="submit" value="Создать">
+          <div class="form__item-wrapper" for="place-name">
+            <input class="form__item" type="text" name="name" id="place-name" placeholder="Название" required>
+            <span class="form__error-msg place-name-error"></span>
+          </div>
+          <div class="form__item-wrapper" for="place-about">
+            <input class="form__item" type="text" name="about" id="place-about" placeholder="Ссылка на картинку" required>
+            <span class="form__error-msg place-about-error"></span>
+          </div>
+          <input class="form__btn" type="submit" value="Создать">
          </form>
          <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
       </div>
@@ -78,5 +84,6 @@
   </template>
   <script src="./js/cards.js"></script>
   <script src="./js/index.js"></script>
+  <script src="./js/validate.js"></script>
 </body>
 </html>
