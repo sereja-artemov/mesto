@@ -39,7 +39,7 @@
     </footer>
     <div id="popup-edit" class="popup">
       <div class="popup__container">
-        <form action="POST" name="profile-edit" class="form" novalidate>
+        <form id="form_type_user" action="POST" name="profile-edit" class="form" novalidate>
           <h2 class="form__title">Редактировать профиль</h2>
           <div class="form__item-wrapper" for="name"><input class="form__item" type="text" name="name" id="name" placeholder="Имя" minlength="2" maxlength="40" required><span class="form__error-msg name-error"></span></div>
           <div class="form__item-wrapper" for="about"><input class="form__item" type="text" name="about" id="about" placeholder="О себе" minlength="2" maxlength="200" required><span class="form__error-msg about-error"></span></div>
@@ -50,14 +50,14 @@
     </div>
     <div id="popup-place" class="popup">
       <div class="popup__container">
-        <form id="form_type_place" action="POST" class="form" novalidate>
+        <form id="form_type_place" action="POST" class="form" name="place" novalidate>
           <h2 class="form__title">Новое место</h2>
           <div class="form__item-wrapper" for="place-name">
-            <input class="form__item" type="text" name="name" id="place-name" placeholder="Название" required>
+            <input class="form__item" type="text" name="name" id="place-name" placeholder="Название" minlength="2" maxlength="30" required>
             <span class="form__error-msg place-name-error"></span>
           </div>
           <div class="form__item-wrapper" for="place-about">
-            <input class="form__item" type="text" name="about" id="place-about" placeholder="Ссылка на картинку" required>
+            <input class="form__item" type="url" name="about" id="place-about" placeholder="Ссылка на картинку" required>
             <span class="form__error-msg place-about-error"></span>
           </div>
           <input class="form__btn" type="submit" value="Создать">

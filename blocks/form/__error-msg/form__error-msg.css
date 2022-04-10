@@ -1,5 +1,5 @@
 .form__error-msg {
-  display: none;
+  display: block;
   z-index: 99999;
   position: absolute;
   left: 0;
