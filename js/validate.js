@@ -66,6 +66,7 @@ const setEventListeners = (formElement, rest) => {
   // сделаем из них массив методом Array.from
   const inputList = Array.from(formElement.querySelectorAll(rest.inputSelector));
   const buttonElement = formElement.querySelector(rest.submitButtonSelector);
+
   toggleButtonState(inputList, buttonElement, rest);
   // Обойдём все элементы полученной коллекции
   inputList.forEach((inputElement) => {
@@ -87,9 +88,14 @@ const enableValidation = ({formSelector, ...rest}) => {
 
   // Переберём полученную коллекцию
   formList.forEach((formElement) => {
+
+    const inputList = Array.from(formElement.querySelectorAll(rest.inputSelector));
+    const buttonElement = formElement.querySelector(rest.submitButtonSelector);
+
     formElement.addEventListener('submit', (evt) => {
       // У каждой формы отменим стандартное поведение
       evt.preventDefault();
+      toggleButtonState(inputList, buttonElement, rest);
     });
 
     // Для каждой формы вызовем функцию setEventListeners,

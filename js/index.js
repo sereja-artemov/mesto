@@ -8,7 +8,7 @@ const fieldName = document.querySelector('.form__item[id="name"]');
 const fieldAbout = document.querySelector('.form__item[id="about"]');
 const profileForm = document.querySelector('.form');
 const popupPlace = document.querySelector('#popup-place');
-const addBtn = document.querySelector('.profile__add-btn');
+const btnAdd = document.querySelector('.profile__add-btn');
 const placeName = document.querySelector('#place-name');
 const placeAbout = document.querySelector('#place-about');
 const placeForm = document.querySelector('#form_type_place');
@@ -40,17 +40,17 @@ popups.forEach(element => {
 
     if (targetElement('popup') || targetElement('popup__close-btn')) {
        closePopup(element);
-    } 
+    }
   });
 });
 
 // закрываем окно по клику на escape
 function closeByEsc(event) {
   if (event.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup); 
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
   }
-} 
+}
 function openProfileEditPopup() {
 
   // заполняем поля формы данными из профиля
@@ -87,8 +87,8 @@ function createCard(imgLink, titleText) {
   //открытие окна с картинкой
   cardImage.addEventListener('click', openPopupCard);
   //удаление карточки
-  const delBtn = cardItem.querySelector('.cards__trash-btn');
-  delBtn.addEventListener('click', () => cardItem.remove());
+  const trashBtn = cardItem.querySelector('.cards__trash-btn');
+  trashBtn.addEventListener('click', () => cardItem.remove());
 
   return cardItem;
 }
@@ -127,7 +127,7 @@ function openPopupCard(event) {
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
-addBtn.addEventListener('click', openPlacePopup);
+btnAdd.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', addCard);
