@@ -8,7 +8,14 @@ const {disabledBtnSelector, formBtnSelector} = validationConfig;
 
 const validateInput = (input) => {
   const errorElement = input.parentNode.querySelector(`.${input.id}-error`);
-  errorElement.textContent = input.validationMessage;
+  if (!input.validity.valid) {
+    errorElement.textContent = input.validationMessage;
+    input.classList.add('form__item_status_error');
+  } else {
+    input.classList.remove('form__item_status_error');
+    errorElement.textContent = '';
+  }
+
 }
 
 const setButtonState = (button, isValid) => {

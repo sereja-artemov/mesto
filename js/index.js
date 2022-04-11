@@ -1,8 +1,7 @@
-const editBtn = document.querySelector('.profile__edit-btn');
+const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
-const popup = document.querySelector('.popup');
 const popups = document.querySelectorAll('.popup');
-const closeBtn = document.querySelectorAll('.popup__close-btn');
+const btnCloseList = document.querySelectorAll('.popup__close-btn');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 const fieldName = document.querySelector('.form__item[id="name"]');
@@ -23,44 +22,42 @@ const popupCardName = document.querySelector('.popup-card__place-name');
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 };
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
 };
 
-// закрываем любое окно по клику на крестик
-closeBtn.forEach(element => {
-  element.addEventListener('click', (event) => {
-    const popup = event.target.closest('.popup');
-    closePopup(popup);
-  });
-});
-// закрываем любое окно по клику на оверлей
+// закрываем любое окно
 popups.forEach(element => {
   element.addEventListener('click', (event) => {
-    if (event.target.classList.contains('popup')) {
-      const popup = event.target.closest('.popup');
-      closePopup(popup);
+
+    function targetElement(element) {
+      return event.target.classList.contains(element);
     }
+
+    if (targetElement('popup') || targetElement('popup__close-btn')) {
+       closePopup(element);
+    } 
   });
 });
-// закрываем окно по клику на escape
-window.addEventListener('keydown', function (event) {
-  if (event.key === 'Escape') {
-    popups.forEach(popup => {
-      if (popup.classList.contains('popup_opened')) {
-        closePopup(popup);
-      }
-    });
-  }
-});
 
+// закрываем окно по клику на escape
+function closeByEsc(event) {
+  if (event.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup); 
+  }
+} 
 function openProfileEditPopup() {
-  openPopup(popupEdit);
+
   // заполняем поля формы данными из профиля
   fieldName.value = profileName.textContent;
   fieldAbout.value = profileAbout.textContent;
+
+  openPopup(popupEdit);
 }
 
 function openPlacePopup() {
@@ -128,7 +125,7 @@ function openPopupCard(event) {
 }
 
 // открываем окно по клику на кнопку редактирования
-editBtn.addEventListener('click', openProfileEditPopup);
+penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 addBtn.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
