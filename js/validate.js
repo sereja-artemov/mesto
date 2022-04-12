@@ -49,17 +49,22 @@ const hasInvalidInput = (inputList) => {
 };
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
-
 const toggleButtonState = (inputList, buttonElement, rest) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    buttonElement.classList.add(rest.inactiveButtonClass);
+    disableFormButton(buttonElement, rest.inactiveButtonClass);
   } else {
     // иначе сделай кнопку активной
     buttonElement.classList.remove(rest.inactiveButtonClass);
+    buttonElement.removeAttribute('disabled', 'disabled');
   }
 };
+// функция делает кнопку неактивной
+function disableFormButton(buttonElement, selector) {
+  buttonElement.classList.add(selector);
+  buttonElement.setAttribute('disabled', 'disabled');
+}
 
 const setEventListeners = (formElement, rest) => {
   // Находим все поля внутри формы,
@@ -95,7 +100,6 @@ const enableValidation = ({formSelector, ...rest}) => {
     formElement.addEventListener('submit', (evt) => {
       // У каждой формы отменим стандартное поведение
       evt.preventDefault();
-      toggleButtonState(inputList, buttonElement, rest);
     });
 
     // Для каждой формы вызовем функцию setEventListeners,

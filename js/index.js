@@ -34,11 +34,11 @@ function openPopup(popup) {
 popups.forEach(element => {
   element.addEventListener('click', (event) => {
 
-    function targetElement(element) {
+    function selector(element) {
       return event.target.classList.contains(element);
     }
 
-    if (targetElement('popup') || targetElement('popup__close-btn')) {
+    if (selector('popup') || selector('popup__close-btn')) {
        closePopup(element);
     }
   });
@@ -106,6 +106,8 @@ function addCard(event) {
   cardsWrapper.prepend(card);
   closePopup(popupPlace);
   placeForm.reset();
+  const btn = placeForm.querySelector('.form__btn');
+  disableFormButton(btn, 'form__btn_status_disabled');
 };
 
 // Лайк карточки
