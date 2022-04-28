@@ -99,22 +99,22 @@ function createCard(imgLink, titleText) {
   cardTitle.textContent = titleText;
 
   //лайк карточки
-  const likeItem = cardItem.querySelector('.cards__like');
-  likeItem.addEventListener('click', likeCard);
+  // const likeItem = cardItem.querySelector('.cards__like');
+  // likeItem.addEventListener('click', likeCard);
   //открытие окна с картинкой
   cardImage.addEventListener('click', openPopupCard);
   //удаление карточки
-  const trashBtn = cardItem.querySelector('.cards__trash-btn');
-  trashBtn.addEventListener('click', () => cardItem.remove());
+  // const trashBtn = cardItem.querySelector('.cards__trash-btn');
+  // trashBtn.addEventListener('click', () => cardItem.remove());
 
   return cardItem;
 }
 
 //Обход массива и создание карточек
-for (let i = 0; i < initialCards.length; i++) {
-  const card = createCard(initialCards[i].link, initialCards[i].name);
-  cardsWrapper.append(card);
-};
+// for (let i = 0; i < initialCards.length; i++) {
+//   const card = createCard(initialCards[i].link, initialCards[i].name);
+//   cardsWrapper.append(card);
+// };
 
 // Добавление новой карточки в начало
 function addCard(event) {
@@ -127,10 +127,7 @@ function addCard(event) {
   disableFormButton(btn, 'form__btn_status_disabled');
 };
 
-// Лайк карточки
-function likeCard(event) {
-  event.target.classList.toggle('cards__like_active');
-}
+
 
 //открытие окна с картинкой
 function openPopupCard(event) {
