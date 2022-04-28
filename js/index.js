@@ -22,7 +22,7 @@ const cardsWrapper = document.querySelector('.cards__wrapper');
 const popupCard = document.querySelector('.popup-card');
 const popupCardImageItem = document.querySelector('.popup-card__img');
 const popupCardCloseBtn = document.querySelector('.popup-card__close-btn');
-const popupCardName = document.querySelector('.popup-card__place-name');
+
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -102,7 +102,7 @@ function createCard(imgLink, titleText) {
   // const likeItem = cardItem.querySelector('.cards__like');
   // likeItem.addEventListener('click', likeCard);
   //открытие окна с картинкой
-  cardImage.addEventListener('click', openPopupCard);
+  // cardImage.addEventListener('click', openPopupCard);
   //удаление карточки
   // const trashBtn = cardItem.querySelector('.cards__trash-btn');
   // trashBtn.addEventListener('click', () => cardItem.remove());
@@ -127,16 +127,12 @@ function addCard(event) {
   disableFormButton(btn, 'form__btn_status_disabled');
 };
 
-
-
 //открытие окна с картинкой
-function openPopupCard(event) {
-  const cardItem = event.target.closest('.cards__item');
-  const cardTitle = cardItem.querySelector('.cards__title');
-  popupCardName.textContent = cardTitle.textContent;
-  const imgSrc = event.target.closest('.cards__image').src;
-  popupCardImageItem.setAttribute('src', imgSrc);
-  popupCardImageItem.setAttribute('alt', cardTitle.textContent);
+export function openPopupCard(name, link) {
+  const popupCardName = document.querySelector('.popup-card__place-name');
+  popupCardName.textContent = name;
+  popupCardImageItem.setAttribute('src', link);
+  popupCardImageItem.setAttribute('alt', name);
   openPopup(popupCard);
 }
 

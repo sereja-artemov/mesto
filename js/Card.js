@@ -1,4 +1,6 @@
-import {initialCards} from './cards.js';
+import { initialCards } from './cards.js';
+import { openPopupCard } from './index.js';
+
 export class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -14,7 +16,7 @@ export class Card {
       .cloneNode(true);
 
     return cardElement;
-    }
+  }
 
   generateCard() {
     // Запишем разметку в приватное поле _element.
@@ -44,20 +46,11 @@ export class Card {
     const trashBtn = this._element.querySelector('.cards__trash-btn');
     trashBtn.addEventListener('click', () => this._element.remove());
 
-    // //открытие окна с картинкой
-    // const cardImage = this._element.querySelector('.cards__image');
-    // cardImage.addEventListener('click', (event) => {
-    //   const cardItem = event.target.closest('.cards__item');
-    //   const cardTitle = cardItem.querySelector('.cards__title');
-    //   const popupCardName = document.querySelector('.popup-card__place-name');
-    //   popupCardName.textContent = cardTitle.textContent;
-    //   const imgSrc = event.target.closest('.cards__image').src;
-    //   const popupCardImageItem = document.querySelector('.popup-card__img');
-    //   popupCardImageItem.setAttribute('src', imgSrc);
-    //   popupCardImageItem.setAttribute('alt', cardTitle.textContent);
-    //   openPopup(popupCard);
-    // });
-
+    //открытие окна с картинкой
+    const cardImage = this._element.querySelector('.cards__image');
+    cardImage.addEventListener('click', () => {
+      openPopupCard(this._name, this._link);
+    });
   }
 
 }
