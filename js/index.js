@@ -1,3 +1,7 @@
+
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
 const popups = document.querySelectorAll('.popup');
