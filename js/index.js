@@ -66,7 +66,6 @@ function clearInputError(popup) {
 
 }
 function openProfileEditPopup() {
-
   // заполняем поля формы данными из профиля
   fieldName.value = profileName.textContent;
   fieldAbout.value = profileAbout.textContent;
@@ -85,45 +84,6 @@ function handleProfileFormSubmit(event) {
   profileAbout.textContent = fieldAbout.value;
   closePopup(popupEdit);
 }
-
-// const cardTemplate = document.querySelector('#cards__item').content;
-// // Добавляем html
-// function createCard(imgLink, titleText) {
-//   const cardItem = cardTemplate.querySelector('.cards__item').cloneNode(true);
-//   const cardImage = cardItem.querySelector('.cards__image');
-//   cardImage.setAttribute('src', imgLink);
-//   cardImage.setAttribute('alt', titleText);
-//   const cardTitle = cardItem.querySelector('.cards__title');
-//   cardTitle.textContent = titleText;
-
-//   //лайк карточки
-//   // const likeItem = cardItem.querySelector('.cards__like');
-//   // likeItem.addEventListener('click', likeCard);
-//   //открытие окна с картинкой
-//   // cardImage.addEventListener('click', openPopupCard);
-//   //удаление карточки
-//   // const trashBtn = cardItem.querySelector('.cards__trash-btn');
-//   // trashBtn.addEventListener('click', () => cardItem.remove());
-
-//   return cardItem;
-// }
-
-//Обход массива и создание карточек
-// for (let i = 0; i < initialCards.length; i++) {
-//   const card = createCard(initialCards[i].link, initialCards[i].name);
-//   cardsWrapper.append(card);
-// };
-
-//Добавление новой карточки в начало
-// function addCard(event) {
-//   event.preventDefault();
-//   const card = createCard(placeAbout.value, placeName.value);
-//   cardsWrapper.prepend(card);
-//   closePopup(popupPlace);
-//   placeForm.reset();
-//   const btn = placeForm.querySelector('.form__btn');
-//   disableFormButton(btn, 'form__btn_status_disabled');
-// };
 
 //Добавление новой карточки в начало
 const addCard = () => {
