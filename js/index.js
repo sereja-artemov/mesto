@@ -114,7 +114,7 @@ const addCard = () => {
   closePopup(popupPlace);
   placeForm.reset();
   const btn = placeForm.querySelector('.form__btn');
-  this._disableFormButton(btn, 'form__btn_status_disabled');
+  _disableFormButton(btn, 'form__btn_status_disabled');
 };
 
   new FormValidator(validationConfig, placeForm).enableValidation();
