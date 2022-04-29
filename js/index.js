@@ -85,6 +85,12 @@ function handleProfileFormSubmit(event) {
   closePopup(popupEdit);
 }
 
+// функция делает кнопку неактивной
+export function disableFormButton(buttonElement, selector) {
+  buttonElement.classList.add(selector);
+  buttonElement.setAttribute('disabled', 'disabled');
+};
+
 //Добавление новой карточки в начало
 const addCard = () => {
   const newCard = new Card({name: placeName.value, link: placeAbout.value}, '#cards__item').generateCard();

@@ -1,3 +1,4 @@
+import { disableFormButton } from './index.js';
 
 export class FormValidator {
   constructor(config, formElement) {
@@ -15,7 +16,6 @@ export class FormValidator {
 
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      _setEventListeners();
     });
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
@@ -40,18 +40,14 @@ export class FormValidator {
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
-      this._disableFormButton(buttonElement, this._inactiveButtonClass);
+      disableFormButton(buttonElement, this._inactiveButtonClass);
     } else {
       // иначе сделай кнопку активной
       buttonElement.classList.remove(this._inactiveButtonClass);
       buttonElement.removeAttribute('disabled', 'disabled');
     }
   };
-// функция делает кнопку неактивной
-_disableFormButton(buttonElement, selector) {
-  buttonElement.classList.add(selector);
-  buttonElement.setAttribute('disabled', 'disabled');
-}
+
   // Функция принимает массив полей
   _hasInvalidInput(inputList) {
     // проходим по этому массиву методом some
