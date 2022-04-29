@@ -1,6 +1,7 @@
 import { initialCards } from './cards.js';
 import { openPopupCard } from './index.js';
 
+
 export class Card {
   constructor(data, cardSelector) {
     this._name = data.name;
@@ -34,17 +35,27 @@ export class Card {
     return this._element;
   }
 
+  likeCard() {
+    this._element.querySelector('.cards__like').classList.toggle('cards__like_active');
+  }
+
+  delCard() {
+    this._element.remove();
+  }
+
   _setEventListeners() {
 
     //лайк карточки
     const likeItem = this._element.querySelector('.cards__like');
-    likeItem.addEventListener('click', (event) => {
-      event.target.classList.toggle('cards__like_active');
+    likeItem.addEventListener('click', () => {
+      this.likeCard();
     });
 
     //удаление карточки
     const trashBtn = this._element.querySelector('.cards__trash-btn');
-    trashBtn.addEventListener('click', () => this._element.remove());
+    trashBtn.addEventListener('click', () => {
+      this.delCard();
+    });
 
     //открытие окна с картинкой
     const cardImage = this._element.querySelector('.cards__image');
@@ -60,6 +71,7 @@ initialCards.forEach((item) => {
   const card = new Card(item, '#cards__item');
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
+
   // Добавляем в DOM
   const cardsWrapper = document.querySelector('.cards__wrapper');
   cardsWrapper.append(cardElement);
