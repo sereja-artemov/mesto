@@ -1,6 +1,7 @@
-
+import { initialCards } from './cards.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
+import { openPopupCard } from './utils.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -17,16 +18,23 @@ const placeAbout = document.querySelector('#place-about');
 const placeForm = document.querySelector('#form_type_place');
 const cardsWrapper = document.querySelector('.cards__wrapper');
 
-// Попап картинки
-const popupCard = document.querySelector('.popup-card');
-const popupCardImageItem = document.querySelector('.popup-card__img');
+
+const validationConfig = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  submitButtonSelector: '.form__btn',
+  inactiveButtonClass: 'form__btn_status_disabled',
+  inputErrorClass: 'form__item_status_error',
+  errorClass: 'form__error-msg_active',
+}
+
 
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEsc);
 };
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closeByEsc);
 };
@@ -85,30 +93,32 @@ function handleProfileFormSubmit(event) {
   closePopup(popupEdit);
 }
 
-// функция делает кнопку неактивной
-export function disableFormButton(buttonElement, selector) {
-  buttonElement.classList.add(selector);
-  buttonElement.setAttribute('disabled', 'disabled');
+const createCard = (data, cardSelector) => {
+  const card = new Card(data, cardSelector).generateCard();
+  return card;
 };
+
+// создание карточек
+initialCards.forEach((item) => {
+  // Создадим экземпляр карточки
+  const card = createCard(item, '#cards__item');
+
+  // Добавляем в DOM
+  cardsWrapper.append(card);
+});
 
 //Добавление новой карточки в начало
 const addCard = () => {
-  const newCard = new Card({name: placeName.value, link: placeAbout.value}, '#cards__item').generateCard();
+  const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item');
   cardsWrapper.prepend(newCard);
   closePopup(popupPlace);
   placeForm.reset();
   const btn = placeForm.querySelector('.form__btn');
-  disableFormButton(btn, 'form__btn_status_disabled');
+  this._disableFormButton(btn, 'form__btn_status_disabled');
 };
 
-//открытие окна с картинкой
-export function openPopupCard(name, link) {
-  const popupCardName = document.querySelector('.popup-card__place-name');
-  popupCardName.textContent = name;
-  popupCardImageItem.setAttribute('src', link);
-  popupCardImageItem.setAttribute('alt', name);
-  openPopup(popupCard);
-}
+  new FormValidator(validationConfig, placeForm).enableValidation();
+  new FormValidator(validationConfig, profileForm).enableValidation();
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
@@ -117,3 +127,4 @@ btnAdd.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 placeForm.addEventListener('submit', addCard);
+

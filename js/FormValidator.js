@@ -1,5 +1,3 @@
-import { disableFormButton } from './index.js';
-
 export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
@@ -10,8 +8,10 @@ export class FormValidator {
     this._inputErrorClass = config.inputErrorClass;
     this._errorClass = config.errorClass;
     this._formElement = formElement;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
   }
-  
+
   enableValidation() {
 
     this._formElement.addEventListener('submit', (evt) => {
@@ -19,19 +19,19 @@ export class FormValidator {
     });
     // Находим все поля внутри формы,
     // сделаем из них массив методом Array.from
-    const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
-    const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
-  
-    this._toggleButtonState(inputList, buttonElement);
+    // const inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
+    // const buttonElement = this._formElement.querySelector(this._submitButtonSelector);
+
+    this._toggleButtonState(this._inputList, this._submitButton);
     // Обойдём все элементы полученной коллекции
-    inputList.forEach((inputElement) => {
+    this._inputList.forEach((inputElement) => {
       // каждому полю добавим обработчик события input
       inputElement.addEventListener('input', () => {
         // Внутри колбэка вызовем isValid,
         // передав ей форму и проверяемый элемент
         this._isValid(this._formElement, inputElement);
         // Вызовем toggleButtonState и передадим ей массив полей и кнопку
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._submitButton);
       });
     });
   };
@@ -40,7 +40,7 @@ export class FormValidator {
     // Если есть хотя бы один невалидный инпут
     if (this._hasInvalidInput(inputList)) {
       // сделай кнопку неактивной
-      disableFormButton(buttonElement, this._inactiveButtonClass);
+      this._disableFormButton(buttonElement, this._inactiveButtonClass);
     } else {
       // иначе сделай кнопку активной
       buttonElement.classList.remove(this._inactiveButtonClass);
@@ -87,20 +87,10 @@ export class FormValidator {
     formError.textContent = '';
   };
 
+  _disableFormButton(buttonElement, selector) {
+    buttonElement.classList.add(selector);
+    buttonElement.setAttribute('disabled', 'disabled');
+  };
+
 }
 
-const validationConfig = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__btn',
-  inactiveButtonClass: 'form__btn_status_disabled',
-  inputErrorClass: 'form__item_status_error',
-  errorClass: 'form__error-msg_active',
-}
-
-
-const formList = Array.from(document.querySelectorAll(validationConfig.formSelector));
-
-formList.forEach((formElement) => {
-  new FormValidator(validationConfig, formElement).enableValidation();
-});
