@@ -60,7 +60,6 @@ initialCards.forEach((item) => {
   const card = new Card(item, '#cards__item');
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
-
   // Добавляем в DOM
   const cardsWrapper = document.querySelector('.cards__wrapper');
   cardsWrapper.append(cardElement);
