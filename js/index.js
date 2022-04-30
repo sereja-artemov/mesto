@@ -1,7 +1,7 @@
 import { initialCards } from './cards.js';
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
-import { openPopupCard } from './utils.js';
+import { openPopupCard, openPopup, closePopup } from './utils.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -18,7 +18,6 @@ const placeAbout = document.querySelector('#place-about');
 const placeForm = document.querySelector('#form_type_place');
 const cardsWrapper = document.querySelector('.cards__wrapper');
 
-
 const validationConfig = {
   formSelector: '.form',
   inputSelector: '.form__item',
@@ -27,17 +26,6 @@ const validationConfig = {
   inputErrorClass: 'form__item_status_error',
   errorClass: 'form__error-msg_active',
 }
-
-
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
-};
-export function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
-};
 
 // закрываем любое окно
 popups.forEach(element => {
@@ -53,13 +41,7 @@ popups.forEach(element => {
   });
 });
 
-// закрываем окно по клику на escape
-function closeByEsc(event) {
-  if (event.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
+
 // // очистка полей с ошибкой
 function clearInputError(popup) {
   const itemWrapperList = popup.querySelectorAll('.form__item-wrapper');
@@ -113,12 +95,16 @@ const addCard = () => {
   cardsWrapper.prepend(newCard);
   closePopup(popupPlace);
   placeForm.reset();
-  const btn = placeForm.querySelector('.form__btn');
-  _disableFormButton(btn, 'form__btn_status_disabled');
+
+  formCardValidator.disableFormButton();
 };
 
-  new FormValidator(validationConfig, placeForm).enableValidation();
-  new FormValidator(validationConfig, profileForm).enableValidation();
+const formCardValidator = new FormValidator(validationConfig, placeForm);
+const formProfileValidator = new FormValidator(validationConfig, profileForm);
+
+formProfileValidator.enableValidation();
+formCardValidator.enableValidation();
+
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
