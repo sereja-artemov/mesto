@@ -74,6 +74,14 @@ function openPlacePopup() {
   popup.open();
   popup.setEventListeners();
 }
+//попап картинки
+const popupCard = document.querySelector('.popup-card');
+function openPopupWidthImage() {
+  const popup = new PopupWithImage(popupCard);
+  popup.open();
+  popup.setEventListeners();
+}
+
 
 function handleProfileFormSubmit(event) {
   event.preventDefault();
@@ -82,8 +90,8 @@ function handleProfileFormSubmit(event) {
   closePopup(popupEdit);
 }
 
-const createCard = (data, cardSelector) => {
-  const card = new Card(data, cardSelector).generateCard();
+const createCard = (data, cardSelector, handleCardClick) => {
+  const card = new Card(data, cardSelector, handleCardClick).generateCard();
   return card;
 };
 
@@ -92,7 +100,7 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (element) => {
-      const card = createCard(element, '#cards__item');
+      const card = createCard(element, '#cards__item', openPopupWidthImage);
       cardsList.addItem(card);
     }
   },

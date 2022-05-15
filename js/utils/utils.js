@@ -1,4 +1,6 @@
 // export {openPopupCard};
+
+
 // Попап картинки
 // const popupCard = document.querySelector('.popup-card');
 // const popupCardImageItem = document.querySelector('.popup-card__img');
