@@ -1,5 +1,5 @@
 import { initialCards, cardsContainerSelector } from '../utils/constants.js';
-import { openPopupCard } from '../utils/utils.js';
+// import { openPopupCard } from '../utils/utils.js';
 
 
 export class Card {
@@ -7,6 +7,7 @@ export class Card {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -59,9 +60,7 @@ export class Card {
 
     //открытие окна с картинкой
     const cardImage = this._element.querySelector('.cards__image');
-    cardImage.addEventListener('click', () => {
-      openPopupCard(this._name, this._link);
-    });
+    cardImage.addEventListener('click', this._handleCardClick);
   }
 
 }

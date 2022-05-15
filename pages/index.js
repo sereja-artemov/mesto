@@ -1,9 +1,10 @@
 import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
 import {Card} from '../js/components/Card.js';
 import {FormValidator} from '../js/FormValidator.js';
-import { openPopupCard } from '../js/utils/utils.js';
+// import { openPopupCard } from '../js/utils/utils.js';
 import { Section } from '../js/components/Section.js';
 import { Popup } from '../js/components/Popup.js';
+import { PopupWithImage } from '../js/components/PopupWithImage.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -58,12 +59,14 @@ function clearInputError(popup) {
 
 }
 function openProfileEditPopup() {
+  const popup = new Popup(popupEdit);
   // заполняем поля формы данными из профиля
   fieldName.value = profileName.textContent;
   fieldAbout.value = profileAbout.textContent;
 
   clearInputError(popupEdit);
-  openPopup(popupEdit);
+  popup.open();
+  popup.setEventListeners();
 }
 
 function openPlacePopup() {

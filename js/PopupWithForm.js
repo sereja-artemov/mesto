@@ -21,7 +21,7 @@ class PopupWithForm extends Popup {
     if (selector('popup') || selector('popup__close-btn')) {
        close();
     }
-    
+
   });
 }
 }
