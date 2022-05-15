@@ -1,7 +1,8 @@
-import { initialCards } from './cards.js';
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
-import { openPopupCard, openPopup, closePopup } from './utils.js';
+import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
+import {Card} from '../js/components/Card.js';
+import {FormValidator} from '../js/FormValidator.js';
+import { openPopupCard, openPopup, closePopup } from '../js/utils/utils.js';
+import { Section } from '../js/components/Section.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -80,14 +81,29 @@ const createCard = (data, cardSelector) => {
   return card;
 };
 
-// создание карточек
-initialCards.forEach((item) => {
-  // Создадим экземпляр карточки
-  const card = createCard(item, '#cards__item');
+//создаем класс section и добавляем карточки
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (element) => {
+      const card = createCard(element, '#cards__item');
+      cardsList.addItem(card);
+    }
+  },
+  cardsContainerSelector
+);
 
-  // Добавляем в DOM
-  cardsWrapper.append(card);
-});
+cardsList.renderItems();
+
+
+// // создание карточек
+// initialCards.forEach((item) => {
+//   // Создадим экземпляр карточки
+//   const card = createCard(item, '#cards__item');
+
+//   // Добавляем в DOM
+//   cardsWrapper.append(card);
+// });
 
 //Добавление новой карточки в начало
 const addCard = () => {
