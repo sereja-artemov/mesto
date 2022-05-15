@@ -1,8 +1,9 @@
 import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
 import {Card} from '../js/components/Card.js';
 import {FormValidator} from '../js/FormValidator.js';
-import { openPopupCard, openPopup, closePopup } from '../js/utils/utils.js';
+import { openPopupCard } from '../js/utils/utils.js';
 import { Section } from '../js/components/Section.js';
+import { Popup } from '../js/components/Popup.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -29,18 +30,18 @@ const validationConfig = {
 }
 
 // закрываем любое окно
-popups.forEach(element => {
-  element.addEventListener('click', (event) => {
+// popups.forEach(element => {
+//   element.addEventListener('click', (event) => {
 
-    function selector(element) {
-      return event.target.classList.contains(element);
-    }
+//     function selector(element) {
+//       return event.target.classList.contains(element);
+//     }
 
-    if (selector('popup') || selector('popup__close-btn')) {
-       closePopup(element);
-    }
-  });
-});
+//     if (selector('popup') || selector('popup__close-btn')) {
+//        closePopup(element);
+//     }
+//   });
+// });
 
 
 // // очистка полей с ошибкой
@@ -66,7 +67,9 @@ function openProfileEditPopup() {
 }
 
 function openPlacePopup() {
-  openPopup(popupPlace);
+  const popup = new Popup(popupPlace);
+  popup.open();
+  popup.setEventListeners();
 }
 
 function handleProfileFormSubmit(event) {

@@ -1,4 +1,4 @@
-export {openPopupCard, openPopup, closePopup};
+export {openPopupCard};
 // Попап картинки
 const popupCard = document.querySelector('.popup-card');
 const popupCardImageItem = document.querySelector('.popup-card__img');
@@ -10,18 +10,18 @@ function openPopupCard(name, link) {
   popupCardImageItem.setAttribute('alt', name);
   openPopup(popupCard);
 }
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEsc);
-};
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
-};
-// закрываем окно по клику на escape
-function closeByEsc(event) {
-  if (event.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
+// function closePopup(popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeByEsc);
+// };
+// function openPopup(popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeByEsc);
+// };
+// // закрываем окно по клику на escape
+// function closeByEsc(event) {
+//   if (event.key === 'Escape') {
+//     const popupOpened = document.querySelector('.popup_opened');
+//     closePopup(popupOpened);
+//   }
+// }
