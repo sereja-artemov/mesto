@@ -6,6 +6,7 @@ import { Section } from '../js/components/Section.js';
 import { Popup } from '../js/components/Popup.js';
 import { PopupWithImage } from '../js/components/PopupWithImage.js';
 import { PopupWithForm } from '../js/components/PopupWithForm.js';
+import { UserInfo } from '../js/components/UserInfo.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -60,10 +61,13 @@ function clearInputError(popup) {
 }
 
 function openProfileEditPopup() {
-  const popup = new Popup(popupEdit);
+  const popup = new PopupWithForm(popupEdit);
+  const userInfo = new UserInfo(profileName, profileAbout);
+  const userInfoValues = userInfo.getUserInfo();
+
   // заполняем поля формы данными из профиля
-  fieldName.value = profileName.textContent;
-  fieldAbout.value = profileAbout.textContent;
+  fieldName.value = userInfoValues.name;
+  fieldAbout.value = userInfoValues.about;
 
   clearInputError(popupEdit);
   popup.open();
@@ -141,6 +145,7 @@ btnAdd.addEventListener('click', openPlacePopup);
 // placeForm.addEventListener('submit', addCard);
 
 
+
 const popupPlaceForm = new PopupWithForm(popupPlace, addCard);
 popupPlaceForm.setEventListeners();
 
@@ -149,7 +154,8 @@ editProfileForm.setEventListeners();
 
 function handleProfileFormSubmit(event) {
   event.preventDefault();
-  profileName.textContent = fieldName.value;
-  profileAbout.textContent = fieldAbout.value;
+  const data = editProfileForm._getInputValues();
+  const userInfo = new UserInfo(profileName, profileAbout);
+  userInfo.setUserInfo(data);
   editProfileForm.close();
 }
