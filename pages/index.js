@@ -1,12 +1,11 @@
 import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
-import {Card} from '../js/components/Card.js';
-import {FormValidator} from '../js/FormValidator.js';
-// import { openPopupCard } from '../js/utils/utils.js';
-import { Section } from '../js/components/Section.js';
-import { Popup } from '../js/components/Popup.js';
-import { PopupWithImage } from '../js/components/PopupWithImage.js';
-import { PopupWithForm } from '../js/components/PopupWithForm.js';
-import { UserInfo } from '../js/components/UserInfo.js';
+import Card from '../js/components/Card.js';
+import FormValidator from '../js/FormValidator.js';
+import Section from '../js/components/Section.js';
+import Popup from '../js/components/Popup.js';
+import PopupWithImage from '../js/components/PopupWithImage.js';
+import PopupWithForm from '../js/components/PopupWithForm.js';
+import UserInfo from '../js/components/UserInfo.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -31,21 +30,6 @@ const validationConfig = {
   inputErrorClass: 'form__item_status_error',
   errorClass: 'form__error-msg_active',
 }
-
-// закрываем любое окно
-// popups.forEach(element => {
-//   element.addEventListener('click', (event) => {
-
-//     function selector(element) {
-//       return event.target.classList.contains(element);
-//     }
-
-//     if (selector('popup') || selector('popup__close-btn')) {
-//        closePopup(element);
-//     }
-//   });
-// });
-
 
 // // очистка полей с ошибкой
 function clearInputError(popup) {
@@ -87,9 +71,6 @@ function openPopupWidthImage() {
   popup.setEventListeners();
 }
 
-
-
-
 const createCard = (data, cardSelector, handleCardClick) => {
   const card = new Card(data, cardSelector, handleCardClick).generateCard();
   return card;
@@ -109,16 +90,6 @@ const cardsList = new Section(
 
 cardsList.renderItems();
 
-
-// // создание карточек
-// initialCards.forEach((item) => {
-//   // Создадим экземпляр карточки
-//   const card = createCard(item, '#cards__item');
-
-//   // Добавляем в DOM
-//   cardsWrapper.append(card);
-// });
-
 //Добавление новой карточки в начало
 const addCard = () => {
   const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item', openPopupWidthImage);
@@ -132,18 +103,14 @@ const addCard = () => {
 const formCardValidator = new FormValidator(validationConfig, placeForm);
 const formProfileValidator = new FormValidator(validationConfig, profileForm);
 
-formProfileValidator.enableValidation();
 formCardValidator.enableValidation();
+formProfileValidator.enableValidation();
 
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 btnAdd.addEventListener('click', openPlacePopup);
-// закрываем окно после отправки формы
-// profileForm.addEventListener('submit', handleProfileFormSubmit);
-// placeForm.addEventListener('submit', addCard);
-
 
 
 const popupPlaceForm = new PopupWithForm(popupPlace, addCard);

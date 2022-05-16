@@ -2,7 +2,7 @@ import { initialCards, cardsContainerSelector } from '../utils/constants.js';
 // import { openPopupCard } from '../utils/utils.js';
 
 
-export class Card {
+export default class Card {
   constructor(data, cardSelector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
