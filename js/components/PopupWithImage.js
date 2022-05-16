@@ -9,9 +9,9 @@ export class PopupWithImage extends Popup {
   open() {
     const popupCardName = this._popupSelector.querySelector('.popup-card__place-name');
     const popupCardImageItem = this._popupSelector.querySelector('.popup-card__img');
-    popupCardName.textContent = this.name;
-    popupCardImageItem.setAttribute('src', this.name);
-    popupCardImageItem.setAttribute('alt', this.link);
+    popupCardName.textContent = event.target.alt;
+    popupCardImageItem.setAttribute('src', event.target.src);
+    popupCardImageItem.setAttribute('alt', event.target.alt);
 
     this._popupSelector.classList.add('popup_opened');
   }
