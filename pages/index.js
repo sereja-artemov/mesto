@@ -121,7 +121,7 @@ cardsList.renderItems();
 
 //Добавление новой карточки в начало
 const addCard = () => {
-  const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item');
+  const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item', openPopupWidthImage);
   cardsWrapper.prepend(newCard);
   closePopup(popupPlace);
   placeForm.reset();
