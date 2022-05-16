@@ -5,6 +5,7 @@ import {FormValidator} from '../js/FormValidator.js';
 import { Section } from '../js/components/Section.js';
 import { Popup } from '../js/components/Popup.js';
 import { PopupWithImage } from '../js/components/PopupWithImage.js';
+import { PopupWithForm } from '../js/components/PopupWithForm.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
@@ -56,8 +57,8 @@ function clearInputError(popup) {
     input.classList.remove('form__item_status_error');
     error.classList.remove('form__error-msg_active');
   });
-
 }
+
 function openProfileEditPopup() {
   const popup = new Popup(popupEdit);
   // заполняем поля формы данными из профиля
@@ -83,12 +84,7 @@ function openPopupWidthImage() {
 }
 
 
-function handleProfileFormSubmit(event) {
-  event.preventDefault();
-  profileName.textContent = fieldName.value;
-  profileAbout.textContent = fieldAbout.value;
-  closePopup(popupEdit);
-}
+
 
 const createCard = (data, cardSelector, handleCardClick) => {
   const card = new Card(data, cardSelector, handleCardClick).generateCard();
@@ -123,7 +119,7 @@ cardsList.renderItems();
 const addCard = () => {
   const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item', openPopupWidthImage);
   cardsWrapper.prepend(newCard);
-  closePopup(popupPlace);
+  popupPlaceForm.close();
   placeForm.reset();
 
   formCardValidator.disableFormButton();
@@ -141,6 +137,19 @@ penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 btnAdd.addEventListener('click', openPlacePopup);
 // закрываем окно после отправки формы
-profileForm.addEventListener('submit', handleProfileFormSubmit);
-placeForm.addEventListener('submit', addCard);
+// profileForm.addEventListener('submit', handleProfileFormSubmit);
+// placeForm.addEventListener('submit', addCard);
 
+
+const popupPlaceForm = new PopupWithForm(popupPlace, addCard);
+popupPlaceForm.setEventListeners();
+
+const editProfileForm = new PopupWithForm(popupEdit, handleProfileFormSubmit);
+editProfileForm.setEventListeners();
+
+function handleProfileFormSubmit(event) {
+  event.preventDefault();
+  profileName.textContent = fieldName.value;
+  profileAbout.textContent = fieldAbout.value;
+  editProfileForm.close();
+}
