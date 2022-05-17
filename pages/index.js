@@ -60,6 +60,7 @@ function openProfileEditPopup() {
 
 function openPlacePopup() {
   const popup = new Popup(popupPlace);
+  clearInputError(popupPlace);
   popup.open();
   popup.setEventListeners();
 }
