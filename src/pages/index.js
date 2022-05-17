@@ -31,6 +31,9 @@ const validationConfig = {
   errorClass: 'form__error-msg_active',
 }
 
+const popup = new Popup(popupPlace);
+popup.setEventListeners();
+
 function openProfileEditPopup() {
   const popup = new PopupWithForm(popupEdit);
   const userInfo = new UserInfo(profileName, profileAbout);
@@ -47,11 +50,8 @@ function openProfileEditPopup() {
 }
 
 function openPlacePopup() {
-  const popup = new Popup(popupPlace);
   formCardValidator.resetValidation();
-
   popup.open();
-  popup.setEventListeners();
 }
 //попап картинки
 const popupCard = document.querySelector('.popup-card');
