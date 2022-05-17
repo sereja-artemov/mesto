@@ -31,19 +31,6 @@ const validationConfig = {
   errorClass: 'form__error-msg_active',
 }
 
-// // очистка полей с ошибкой
-function clearInputError(popup) {
-  const itemWrapperList = popup.querySelectorAll('.form__item-wrapper');
-
-  itemWrapperList.forEach(element => {
-    const input = element.querySelector('.form__item');
-    const error = element.querySelector('.form__error-msg');
-
-    input.classList.remove('form__item_status_error');
-    error.classList.remove('form__error-msg_active');
-  });
-}
-
 function openProfileEditPopup() {
   const popup = new PopupWithForm(popupEdit);
   const userInfo = new UserInfo(profileName, profileAbout);
@@ -53,14 +40,16 @@ function openProfileEditPopup() {
   fieldName.value = userInfoValues.name;
   fieldAbout.value = userInfoValues.about;
 
-  clearInputError(popupEdit);
+  formProfileValidator.resetValidation();
+
   popup.open();
   popup.setEventListeners();
 }
 
 function openPlacePopup() {
   const popup = new Popup(popupPlace);
-  clearInputError(popupPlace);
+  formCardValidator.resetValidation();
+
   popup.open();
   popup.setEventListeners();
 }

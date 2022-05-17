@@ -31,7 +31,7 @@ export default class FormValidator {
         this._toggleButtonState();
       });
     });
-  };
+  }
 
   _toggleButtonState() {
     // Если есть хотя бы один невалидный инпут
@@ -43,7 +43,7 @@ export default class FormValidator {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
       this._buttonElement.removeAttribute('disabled', 'disabled');
     }
-  };
+  }
 
   // Функция принимает массив полей
   _hasInvalidInput() {
@@ -55,7 +55,7 @@ export default class FormValidator {
 
       return !inputElement.validity.valid;
     })
-  };
+  }
 
   // Функция, которая проверяет валидность поля
   _isValid(inputElement) {
@@ -66,7 +66,7 @@ export default class FormValidator {
       // Если проходит, скроем
       this._hideInputError(inputElement);
     }
-  };
+  }
 
     // Функция, которая добавляет класс с ошибкой
   _showInputError(inputElement) {
@@ -74,7 +74,7 @@ export default class FormValidator {
     inputElement.classList.add(this._inputErrorClass);
     formError.classList.add(this._errorClass);
     formError.textContent = inputElement.validationMessage;
-  };
+  }
 
   // Функция, которая удаляет класс с ошибкой
   _hideInputError(inputElement) {
@@ -82,12 +82,19 @@ export default class FormValidator {
     inputElement.classList.remove(this._inputErrorClass);
     formError.classList.remove(this._errorClass);
     formError.textContent = '';
-  };
+  }
+
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    })
+  }
 
   disableFormButton() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
-  };
+  }
 
 }
 
