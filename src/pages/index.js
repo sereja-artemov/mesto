@@ -21,6 +21,7 @@ const placeName = document.querySelector('#place-name');
 const placeAbout = document.querySelector('#place-about');
 const placeForm = document.querySelector('#form_type_place');
 const cardsWrapper = document.querySelector('.cards__wrapper');
+const popupCard = document.querySelector('.popup-card');
 
 const validationConfig = {
   formSelector: '.form',
@@ -33,6 +34,9 @@ const validationConfig = {
 
 const popup = new Popup(popupPlace);
 popup.setEventListeners();
+
+const popupWithImage = new PopupWithImage(popupCard);
+popupWithImage.setEventListeners();
 
 function openProfileEditPopup() {
   const popup = new PopupWithForm(popupEdit);
@@ -54,11 +58,8 @@ function openPlacePopup() {
   popup.open();
 }
 //попап картинки
-const popupCard = document.querySelector('.popup-card');
 function openPopupWidthImage() {
-  const popup = new PopupWithImage(popupCard);
-  popup.open();
-  popup.setEventListeners();
+  popupWithImage.open(event.target.alt, event.target.src);
 }
 
 const createCard = (data, cardSelector, handleCardClick) => {

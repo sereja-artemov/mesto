@@ -2,17 +2,16 @@ import Popup from './Popup.js';
 
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
-    // this.name = data.name;
-    // this.link = data.link;
     super(popupSelector);
+      //находим картинку и название в попапе, которые нужно заполнить
+      this._popupCardName = popupSelector.querySelector('.popup-card__place-name');
+      this._popupCardImageItem = popupSelector.querySelector('.popup-card__img');
   }
-  open() {
-    const popupCardName = this._popupSelector.querySelector('.popup-card__place-name');
-    const popupCardImageItem = this._popupSelector.querySelector('.popup-card__img');
-    popupCardName.textContent = event.target.alt;
-    popupCardImageItem.setAttribute('src', event.target.src);
-    popupCardImageItem.setAttribute('alt', event.target.alt);
+  open(name, link) {
+    this._popupCardName.textContent = name;
+    this._popupCardImageItem.setAttribute('src', link);
+    this._popupCardImageItem.setAttribute('alt', name);
 
-    this._popupSelector.classList.add('popup_opened');
+    super.open();
   }
 }
