@@ -1,6 +1,7 @@
+import './index.css';
 import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
 import Card from '../js/components/Card.js';
-import FormValidator from '../js/FormValidator.js';
+import FormValidator from '../js/components/FormValidator.js';
 import Section from '../js/components/Section.js';
 import Popup from '../js/components/Popup.js';
 import PopupWithImage from '../js/components/PopupWithImage.js';
@@ -9,7 +10,6 @@ import UserInfo from '../js/components/UserInfo.js';
 
 const penBtn = document.querySelector('.profile__edit-btn');
 const popupEdit = document.querySelector('#popup-edit');
-const popups = document.querySelectorAll('.popup');
 const profileName = document.querySelector('.profile__name');
 const profileAbout = document.querySelector('.profile__about');
 const fieldName = document.querySelector('.form__item[id="name"]');

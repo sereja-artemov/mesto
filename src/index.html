@@ -4,20 +4,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
   <title>Mesto</title>
 </head>
 <body>
   <div class="root">
     <header class="header container-fluid">
       <a href="#" class="header__logo">
-        <img src="./images/mesto-logo.svg" alt="логотип mesto russia" class="header__logo-img">
+        <img src="<%=require('./images/mesto-logo.svg')%>" alt="логотип mesto russia" class="header__logo-img">
       </a>
     </header>
     <main>
       <section class="profile container">
         <div class="profile__user">
-          <img src="./images/user-avatar.jpg" alt="Жак-Ив Кусто аватар" class="profile__img">
+          <img src="<%=require('./images/user-avatar.jpg')%>" alt="Жак-Ив Кусто аватар" class="profile__img">
           <div class="profile__info">
             <div class="profile__name-wrapper">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -82,6 +82,6 @@
       </div><button class="cards__trash-btn"></button>
     </li>
   </template>
-  <script type="module" src="./pages/index.js"></script>
+  <!-- <script type="module" src="./pages/index.js"></script> -->
 </body>
 </html>
