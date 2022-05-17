@@ -22,9 +22,8 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     // Добавим данные
-    const cardImage = this._element.querySelector('.cards__image');
-    cardImage.setAttribute('src', this._link);
-    cardImage.setAttribute('alt', this._name);
+    this._cardImage.setAttribute('src', this._link);
+    this._cardImage.setAttribute('alt', this._name);
     const cardTitle = this._element.querySelector('.cards__title');
     cardTitle.textContent = this._name;
 
@@ -33,7 +32,7 @@ export default class Card {
   }
 
   likeCard() {
-    this._element.querySelector('.cards__like').classList.toggle('cards__like_active');
+    this._likeItem.classList.toggle('cards__like_active');
   }
 
   delCard() {
@@ -41,10 +40,9 @@ export default class Card {
   }
 
   _setEventListeners() {
-
+    this._likeItem = this._element.querySelector('.cards__like');
     //лайк карточки
-    const likeItem = this._element.querySelector('.cards__like');
-    likeItem.addEventListener('click', () => {
+    this._likeItem.addEventListener('click', () => {
       this.likeCard();
     });
 
@@ -55,8 +53,8 @@ export default class Card {
     });
 
     //открытие окна с картинкой
-    const cardImage = this._element.querySelector('.cards__image');
-    cardImage.addEventListener('click', this._handleCardClick);
+    this._cardImage = this._element.querySelector('.cards__image');
+    this._cardImage.addEventListener('click', this._handleCardClick);
   }
 
 }

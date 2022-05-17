@@ -4,12 +4,10 @@ export default class PopupWithForm extends Popup {
   constructor(popupSelector, formSubmit) {
     super(popupSelector);
     this._form = popupSelector.querySelector('form');
+    this._inputList = this._form.querySelectorAll('.form__item');
     this._formSubmit = formSubmit;
   }
   _getInputValues() {
-    // достаём все элементы полей
-    this._inputList = this._form.querySelectorAll('.form__item');
-
     // создаём пустой объект
     this._formValues = {};
 
@@ -22,21 +20,12 @@ export default class PopupWithForm extends Popup {
     return this._formValues;
   }
   close() {
-    this._popupSelector.classList.remove('popup_opened');
+    super.close();
     this._form.reset();
   }
   setEventListeners() {
-    this._popupSelector.addEventListener('click', (event) => {
+    super.setEventListeners();
 
-    function selector(element) {
-      return event.target.classList.contains(element);
-    }
-
-    if (selector('popup') || selector('popup__close-btn')) {
-       this.close();
-    }
-
-  });
     document.addEventListener('keydown', this._handleEscClose);
     this._form.addEventListener('submit', this._formSubmit);
   }
