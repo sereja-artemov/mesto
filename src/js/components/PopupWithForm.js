@@ -25,7 +25,6 @@ export default class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    document.addEventListener('keydown', this._handleEscClose);
 
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
