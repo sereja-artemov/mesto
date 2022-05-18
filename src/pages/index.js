@@ -38,8 +38,10 @@ popup.setEventListeners();
 const popupWithImage = new PopupWithImage(popupCard);
 popupWithImage.setEventListeners();
 
+const popupWithForm = new PopupWithForm(popupEdit);
+popupWithImage.setEventListeners();
+
 function openProfileEditPopup() {
-  const popup = new PopupWithForm(popupEdit);
   const userInfo = new UserInfo(profileName, profileAbout);
   const userInfoValues = userInfo.getUserInfo();
 
@@ -49,8 +51,7 @@ function openProfileEditPopup() {
 
   formProfileValidator.resetValidation();
 
-  popup.open();
-  popup.setEventListeners();
+  popupWithForm.open();
 }
 
 function openPlacePopup() {
@@ -114,7 +115,6 @@ editProfileForm.setEventListeners();
 const userInfo = new UserInfo(profileName, profileAbout);
 
 function handleProfileFormSubmit(formData) {
-  // const data = editProfileForm._getInputValues();
   userInfo.setUserInfo(formData);
   editProfileForm.close();
 }
