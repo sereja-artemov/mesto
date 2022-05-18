@@ -73,23 +73,13 @@ const cardsList = new Section(
     items: initialCards,
     renderer: (element) => {
       const card = createCard(element, '#cards__item', openPopupWidthImage);
-      cardsList.addItem(card);
+      cardsList.addItemToEnd(card);
     }
   },
   cardsContainerSelector
 );
 
 cardsList.renderItems();
-
-//Добавление новой карточки в начало
-const addCard = () => {
-  const newCard = createCard({name: placeName.value, link: placeAbout.value}, '#cards__item', openPopupWidthImage);
-  cardsWrapper.prepend(newCard);
-  popupPlaceForm.close();
-  placeForm.reset();
-
-  formCardValidator.disableFormButton();
-};
 
 const formCardValidator = new FormValidator(validationConfig, placeForm);
 const formProfileValidator = new FormValidator(validationConfig, profileForm);
@@ -107,13 +97,24 @@ btnAdd.addEventListener('click', openPlacePopup);
 const popupPlaceForm = new PopupWithForm(popupPlace, addCard);
 popupPlaceForm.setEventListeners();
 
+//Добавление новой карточки в начало
+function addCard(formData) {
+  const newCard = createCard(formData, '#cards__item', openPopupWidthImage);
+  cardsList.addItemToStart(newCard);
+  popupPlaceForm.close();
+  placeForm.reset();
+
+  formCardValidator.disableFormButton();
+};
+
+
 const editProfileForm = new PopupWithForm(popupEdit, handleProfileFormSubmit);
 editProfileForm.setEventListeners();
 
-function handleProfileFormSubmit(event) {
-  event.preventDefault();
-  const data = editProfileForm._getInputValues();
-  const userInfo = new UserInfo(profileName, profileAbout);
-  userInfo.setUserInfo(data);
+const userInfo = new UserInfo(profileName, profileAbout);
+
+function handleProfileFormSubmit(formData) {
+  // const data = editProfileForm._getInputValues();
+  userInfo.setUserInfo(formData);
   editProfileForm.close();
 }
