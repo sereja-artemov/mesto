@@ -7,6 +7,7 @@ import Popup from '../js/components/Popup.js';
 import PopupWithImage from '../js/components/PopupWithImage.js';
 import PopupWithForm from '../js/components/PopupWithForm.js';
 import UserInfo from '../js/components/UserInfo.js';
+import Api from '../js/components/Api.js';
 import {
   penBtn,
   popupEdit,
@@ -22,6 +23,14 @@ import {
   validationConfig
 } from '../js/utils/constants.js';
 
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-42',
+  headers: {
+    authorization: '421e1d14-42de-4757-b693-b79ba1c9d363',
+    'Content-Type': 'application/json'
+  }
+});
 
 const popupWithImage = new PopupWithImage(popupCard, openProfileEditPopup);
 popupWithImage.setEventListeners();
