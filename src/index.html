@@ -72,14 +72,46 @@
         <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
       </div>
     </div>
-  </div>
+    <div id="popup-avatar" class="popup popup-avatar">
+      <div class="popup__container">
+         <form id="form_type_avatar" action="POST" class="form" name="avatar" novalidate>
+           <h2 class="form__title">Обновить аватар</h2>
+            <div class="form__item-wrapper" for="form_type_avatar">
+            <input class="form__item" type="url" name="avatar" id="avatar" placeholder="Ссылка на картинку" required>
+            <span class="form__error-msg place-about-error"></span>
+          </div>
+          <input class="form__btn" type="submit" value="Сохранить">
+         </form>
+         <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
+         </form>
+      </div>
+    </div>
+    <div id="popup-confirm" class="popup popup-confirm">
+      <div class="popup__container">
+         <form id="form_type_confirm" action="POST" class="form" name="avatar" novalidate>
+           <h2 class="form__title">Вы уверены?</h2>
+            <div class="form__item-wrapper" for="form_type_confirm">
+            <span class="form__error-msg"></span>
+          </div>
+          <input class="form__btn" type="submit" value="Да">
+         </form>
+         <button type="button" class="popup__close-btn" aria-label="Закрыть"></button>
+         </form>
+      </div>
+    </div>
+  </div>    
   <template id="cards__item">
     <li class="cards__item">
       <img class="cards__image" src="#">
       <div class="cards__content">
         <h3 class="cards__title"></h3>
-        <button class="cards__like"></button>
-      </div><button class="cards__trash-btn"></button>
+        <div class="cards__like-wrapper">
+            <button class="cards__like"></button>
+            <span class="cards__like-counter">1</span>
+      </div>
+      <button class="cards__trash-btn"></button>
+        </div>
+      
     </li>
   </template>
   <!-- <script type="module" src="./pages/index.js"></script> -->

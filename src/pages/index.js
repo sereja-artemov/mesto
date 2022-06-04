@@ -20,7 +20,12 @@ import {
   btnAdd,
   placeForm,
   popupCard,
-  validationConfig
+  validationConfig,
+  popupAvatar,
+  avatarLink,
+  avatarBtn,
+  avatarForm,
+  popupConfirm
 } from '../js/utils/constants.js';
 
 
@@ -40,6 +45,12 @@ editProfileForm.setEventListeners();
 
 const popupPlaceForm = new PopupWithForm(popupPlace, addCard);
 popupPlaceForm.setEventListeners();
+
+const popupAvatar = new PopupWithForm(popupAvatar, handleAvatarFormSubmit);
+popupAvatar.setEventListeners();
+
+const popupConfirm = new PopupWithForm(popupConfirm, handleConfirmFormSubmit);
+popupConfirm.setEventListeners();
 
 const userInfo = new UserInfo(profileName, profileAbout);
 
@@ -65,15 +76,26 @@ function openPopupWidthImage() {
   popupWithImage.open(event.target.alt, event.target.src);
 }
 
+function openAvatarPopup() {
+  avatarForm.resetValidation();
+  popupAvatar.open();
+}
+
+function openPopupConfirm() {
+  popupConfirm.open();
+}
+
 const createCard = (data, cardSelector, handleCardClick) => {
-  const card = new Card(data, cardSelector, handleCardClick).generateCard();
+  const card = new Card(data, cardSelector,
+   userData._id, handleCardClick, handleConfirmFormSubmit, setLike,  removeLike).generateCard();
   return card;
 };
-
+// Получаем массив с объектами карточек
+const cardsData = api.getInitialCards();
 //создаем класс section и добавляем карточки
 const cardsList = new Section(
   {
-    items: initialCards,
+    items: cardsData,
     renderer: (element) => {
       const card = createCard(element, '#cards__item', openPopupWidthImage);
       cardsList.addItemToEnd(card);
@@ -86,28 +108,55 @@ cardsList.renderItems();
 
 const formCardValidator = new FormValidator(validationConfig, placeForm);
 const formProfileValidator = new FormValidator(validationConfig, profileForm);
+const formAvatarValidator = new FormValidator(validationConfig, avatarForm);
 
 formCardValidator.enableValidation();
 formProfileValidator.enableValidation();
+avatarForm.enableValidation();
 
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 btnAdd.addEventListener('click', openPlacePopup);
-
+avatarBtn.addEventListener('click', openAvatarPopup)
 
 //Добавление новой карточки в начало
 function addCard(formData) {
-  const newCard = createCard(formData, '#cards__item', openPopupWidthImage);
+  const newCard = createCard(formData, '#cards__item', openPopupWidthImage, delCard);
+  api.sendNewCard(formData.name ,formData.link)
   cardsList.addItemToStart(newCard);
   popupPlaceForm.close();
   placeForm.reset();
 
   formCardValidator.disableFormButton();
 };
+// получаем данные пользователя с сервера в виде объекта
+const userData = api.getUserInfo();
+
+//function handleProfileFormSubmit(formData) {
+//  userInfo.setUserInfo(formData);
+//  editProfileForm.close();
+//}
 
 function handleProfileFormSubmit(formData) {
   userInfo.setUserInfo(formData);
+  api.sendUserInfo(formData);
   editProfileForm.close();
+}
+
+function handleAvatarFormSubmit() {
+  api.setUserAvatar(avatarLink);
+}
+
+function handleConfirmFormSubmit(data) {
+  api.delCard(data);
+}
+
+function setLike(data) {
+  api.setLike(data);
+}
+
+function removeLike(data) {
+  api.removeLike(data);
 }
