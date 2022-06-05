@@ -25,6 +25,7 @@ import {
   avatarLink,
   avatarBtn,
   avatarForm,
+  avatarImg,
   popupConfirm
 } from '../js/utils/constants.js';
 
@@ -52,7 +53,7 @@ popupAvatarForm.setEventListeners();
 const popupConfirmForm = new PopupWithForm(popupConfirm, handleConfirmFormSubmit);
 popupConfirmForm.setEventListeners();
 
-const userInfo = new UserInfo(profileName, profileAbout);
+const userInfo = new UserInfo(profileName, profileAbout, avatarImg);
 
 
 function openProfileEditPopup() {
@@ -86,7 +87,15 @@ function openPopupConfirm() {
 }
 
 const createCard = (data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike) => {
-  const card = new Card(data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike).generateCard();
+  const card = new Card(
+    data,
+    cardSelector,
+    userId,
+    handleCardClick,
+    delCard,
+    setLike,
+    removeLike
+  ).generateCard();
   return card;
 };
 
@@ -97,6 +106,8 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
 .then((data) => {
   const [initialCards, userData] = data;
   cardsList.renderItems(initialCards);
+
+  userInfo.setUserInfo(userData);
   userId = userData.id;
 })
 .catch((err) => {
@@ -115,7 +126,6 @@ const cardsList = new Section(
   cardsContainerSelector
 );
 
-// cardsList.renderItems();
 
 const formCardValidator = new FormValidator(validationConfig, placeForm);
 const formProfileValidator = new FormValidator(validationConfig, profileForm);
@@ -134,7 +144,7 @@ btnAdd.addEventListener('click', openPlacePopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {
-  const newCard = createCard(formData, '#cards__item', openPopupWidthImage, delCard);
+  const newCard = createCard(formData, '#cards__item', userId, openPopupWidthImage, setLike, removeLike);
   api.sendNewCard(formData.name ,formData.link)
   cardsList.addItemToStart(newCard);
   popupPlaceForm.close();
@@ -142,17 +152,13 @@ function addCard(formData) {
 
   formCardValidator.disableFormButton();
 };
-// получаем данные пользователя с сервера в виде объекта
-// const userData = api.getUserInfo();
 
-//function handleProfileFormSubmit(formData) {
-//  userInfo.setUserInfo(formData);
-//  editProfileForm.close();
-//}
-
+//Отправляем форму редактирования пользователя
 function handleProfileFormSubmit(formData) {
-  userInfo.setUserInfo(formData);
-  api.sendUserInfo(formData);
+  api.sendUserInfo(formData)
+  .then((data) => {
+    userInfo.setUserInfo(data);
+  });
   editProfileForm.close();
 }
 

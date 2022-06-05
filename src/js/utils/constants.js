@@ -1,30 +1,3 @@
-// // Карточки
-// export const initialCards = [{
-//   name: 'Архыз',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-// },
-// {
-//   name: 'Челябинская область',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-// },
-// {
-//   name: 'Иваново',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-// },
-// {
-//   name: 'Камчатка',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-// },
-// {
-//   name: 'Холмогорский район',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-// },
-// {
-//   name: 'Байкал',
-//   link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-// }
-// ];
-
 export const cardsContainerSelector = '.cards__wrapper';
 
 export const penBtn = document.querySelector('.profile__edit-btn');
@@ -42,6 +15,7 @@ export const popupAvatar = document.querySelector('#popup-avatar');
 export const avatarLink = popupAvatar.querySelector('.form__item[id="avatar"]');
 export const avatarBtn = document.querySelector('.profile__avatar-btn');
 export const avatarForm = document.querySelector('#form_type_avatar');
+export const avatarImg = document.querySelector('.profile__img');
 export const popupConfirm = document.querySelector('#popup-confirm');
 
 export const validationConfig = {
