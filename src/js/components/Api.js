@@ -24,11 +24,14 @@ export default class Api {
     }).then(this._getData);
   }
 
-  sendNewCard(name, link) {
+  sendNewCard(data) {
     return fetch(this._baseUrl + '/cards', {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify(name, link)
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
     }).then(this._getData);
 
   }

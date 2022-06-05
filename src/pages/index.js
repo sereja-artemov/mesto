@@ -119,7 +119,7 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (element) => {
-      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, setLike, removeLike);
+      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, handleConfirmFormSubmit, setLike, removeLike);
       cardsList.addItemToEnd(card);
     }
   },
@@ -144,16 +144,26 @@ btnAdd.addEventListener('click', openPlacePopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {
-  const newCard = createCard(formData, '#cards__item', userId, openPopupWidthImage, setLike, removeLike);
-  api.sendNewCard(formData.name ,formData.link)
-  cardsList.addItemToStart(newCard);
-  popupPlaceForm.close();
-  placeForm.reset();
+  api.sendNewCard(formData)
+  .then((data) => {
+    console.log(data);
+    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleConfirmFormSubmit, setLike, removeLike);
+    console.log(newCard);
+    cardsList.addItemToStart(newCard);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    popupPlaceForm.close();
+    placeForm.reset();
+  })
+
 
   formCardValidator.disableFormButton();
 };
 
-//Отправляем форму редактирования пользователя
+//Отправляем форму редактирования пользователя и обновляем данные
 function handleProfileFormSubmit(formData) {
   api.sendUserInfo(formData)
   .then((data) => {
