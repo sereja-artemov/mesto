@@ -64,7 +64,7 @@ export default class Card {
     const trashBtn = this._element.querySelector('.cards__trash-btn');
 
     if (this._userId === this._ownerId) {
-      trashBtn.addEventListener('click', this._delCard(this._data));
+      trashBtn.addEventListener('click', this._delCard);
     } else {
       trashBtn.remove();
     }

@@ -6,6 +6,7 @@ import Section from '../js/components/Section.js';
 import Popup from '../js/components/Popup.js';
 import PopupWithImage from '../js/components/PopupWithImage.js';
 import PopupWithForm from '../js/components/PopupWithForm.js';
+import PopupWithSubmit from '../js/components/PopupWithSubmit.js';
 import UserInfo from '../js/components/UserInfo.js';
 import Api from '../js/components/Api.js';
 import {
@@ -50,8 +51,9 @@ popupPlaceForm.setEventListeners();
 const popupAvatarForm = new PopupWithForm(popupAvatar, handleAvatarFormSubmit);
 popupAvatarForm.setEventListeners();
 
-const popupConfirmForm = new PopupWithForm(popupConfirm, handleConfirmFormSubmit);
-popupConfirmForm.setEventListeners();
+const popupWithSubmit = new PopupWithSubmit(popupConfirm);
+popupWithSubmit.setEventListeners();
+
 
 const userInfo = new UserInfo(profileName, profileAbout, avatarImg);
 
@@ -83,8 +85,23 @@ function openAvatarPopup() {
 }
 
 function openPopupConfirm() {
-  popupConfirm.open();
+  popupWithSubmit.open();
 }
+
+const initialCards = [];
+let userId = '';
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+.then((data) => {
+  const [initialCards, userData] = data;
+  userId = userData._id;
+  cardsList.renderItems(initialCards);
+
+  userInfo.setUserInfo(userData);
+})
+.catch((err) => {
+  console.log(err);
+})
 
 const createCard = (data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike) => {
   const card = new Card(
@@ -99,27 +116,12 @@ const createCard = (data, cardSelector, userId, handleCardClick, delCard, setLik
   return card;
 };
 
-const initialCards = [];
-let userId = '';
-
-Promise.all([api.getInitialCards(), api.getUserInfo()])
-.then((data) => {
-  const [initialCards, userData] = data;
-  cardsList.renderItems(initialCards);
-
-  userInfo.setUserInfo(userData);
-  userId = userData.id;
-})
-.catch((err) => {
-  console.log(err);
-})
-
 //создаем класс section и добавляем карточки
 const cardsList = new Section(
   {
     items: initialCards,
     renderer: (element) => {
-      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, handleConfirmFormSubmit, setLike, removeLike);
+      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, openPopupConfirm, setLike, removeLike);
       cardsList.addItemToEnd(card);
     }
   },
@@ -147,7 +149,7 @@ function addCard(formData) {
   api.sendNewCard(formData)
   .then((data) => {
     console.log(data);
-    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleConfirmFormSubmit, setLike, removeLike);
+    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, openPopupConfirm, setLike, removeLike);
     console.log(newCard);
     cardsList.addItemToStart(newCard);
   })
