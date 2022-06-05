@@ -40,7 +40,7 @@ export default class Card {
     // Вернём элемент наружу
     return this._element;
   }
-  
+
   _handleLikeBtn() {
     if (this._likeItem.classList.contains('.cards__like_active')) {
       this._likeItem.classList.remove('.cards__like_active');
@@ -62,7 +62,7 @@ export default class Card {
 
     //удаление карточки
     const trashBtn = this._element.querySelector('.cards__trash-btn');
-    
+
     if (this._userId === this._ownerId) {
       trashBtn.addEventListener('click', this._delCard(this._data));
     } else {

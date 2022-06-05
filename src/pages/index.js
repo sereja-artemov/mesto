@@ -1,5 +1,5 @@
 import './index.css';
-import { initialCards, cardsContainerSelector } from '../js/utils/constants.js';
+import { cardsContainerSelector } from '../js/utils/constants.js';
 import Card from '../js/components/Card.js';
 import FormValidator from '../js/components/FormValidator.js';
 import Section from '../js/components/Section.js';
@@ -46,11 +46,11 @@ editProfileForm.setEventListeners();
 const popupPlaceForm = new PopupWithForm(popupPlace, addCard);
 popupPlaceForm.setEventListeners();
 
-const popupAvatar = new PopupWithForm(popupAvatar, handleAvatarFormSubmit);
-popupAvatar.setEventListeners();
+const popupAvatarForm = new PopupWithForm(popupAvatar, handleAvatarFormSubmit);
+popupAvatarForm.setEventListeners();
 
-const popupConfirm = new PopupWithForm(popupConfirm, handleConfirmFormSubmit);
-popupConfirm.setEventListeners();
+const popupConfirmForm = new PopupWithForm(popupConfirm, handleConfirmFormSubmit);
+popupConfirmForm.setEventListeners();
 
 const userInfo = new UserInfo(profileName, profileAbout);
 
@@ -85,26 +85,37 @@ function openPopupConfirm() {
   popupConfirm.open();
 }
 
-const createCard = (data, cardSelector, handleCardClick) => {
-  const card = new Card(data, cardSelector,
-   userData._id, handleCardClick, handleConfirmFormSubmit, setLike,  removeLike).generateCard();
+const createCard = (data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike) => {
+  const card = new Card(data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike).generateCard();
   return card;
 };
-// Получаем массив с объектами карточек
-const cardsData = api.getInitialCards();
+
+const initialCards = [];
+let userId = '';
+
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+.then((data) => {
+  const [initialCards, userData] = data;
+  cardsList.renderItems(initialCards);
+  userId = userData.id;
+})
+.catch((err) => {
+  console.log(err);
+})
+
 //создаем класс section и добавляем карточки
 const cardsList = new Section(
   {
-    items: cardsData,
+    items: initialCards,
     renderer: (element) => {
-      const card = createCard(element, '#cards__item', openPopupWidthImage);
+      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, setLike, removeLike);
       cardsList.addItemToEnd(card);
     }
   },
   cardsContainerSelector
 );
 
-cardsList.renderItems();
+// cardsList.renderItems();
 
 const formCardValidator = new FormValidator(validationConfig, placeForm);
 const formProfileValidator = new FormValidator(validationConfig, profileForm);
@@ -112,14 +123,14 @@ const formAvatarValidator = new FormValidator(validationConfig, avatarForm);
 
 formCardValidator.enableValidation();
 formProfileValidator.enableValidation();
-avatarForm.enableValidation();
+// avatarForm.enableValidation();
 
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 btnAdd.addEventListener('click', openPlacePopup);
-avatarBtn.addEventListener('click', openAvatarPopup)
+// avatarBtn.addEventListener('click', openAvatarPopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {
@@ -132,7 +143,7 @@ function addCard(formData) {
   formCardValidator.disableFormButton();
 };
 // получаем данные пользователя с сервера в виде объекта
-const userData = api.getUserInfo();
+// const userData = api.getUserInfo();
 
 //function handleProfileFormSubmit(formData) {
 //  userInfo.setUserInfo(formData);
