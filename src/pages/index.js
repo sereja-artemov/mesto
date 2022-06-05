@@ -159,7 +159,6 @@ function addCard(formData) {
     placeForm.reset();
   })
 
-
   formCardValidator.disableFormButton();
 };
 
