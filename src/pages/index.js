@@ -28,7 +28,8 @@ import {
   avatarForm,
   avatarImg,
   popupConfirm,
-  cardSelector
+  cardSelector,
+  avatarOverlay
 } from '../js/utils/constants.js';
 
 

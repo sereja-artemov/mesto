@@ -18,6 +18,7 @@ export const avatarForm = document.querySelector('#form_type_avatar');
 export const avatarImg = document.querySelector('.profile__img');
 export const popupConfirm = document.querySelector('#popup-confirm');
 export const cardSelector = '#cards__item';
+export const avatarOverlay = document.querySelector('.profile__avatar-overlay');
 
 
 export const validationConfig = {

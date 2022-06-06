@@ -17,7 +17,12 @@
     <main>
       <section class="profile container">
         <div class="profile__user">
-          <img src="#" alt="Аватар" class="profile__img">
+          <div class="profile__avatar-wrapper">
+            <img src="#" alt="Аватар" class="profile__img">
+            <div class="profile__avatar-overlay">
+              <img src="<%=require('./images/edit-pen.svg')%>" alt="Редактировать" class="profile__avatar-edit-img">
+            </div>
+          </div>
           <div class="profile__info">
             <div class="profile__name-wrapper">
               <h1 class="profile__name"></h1>
