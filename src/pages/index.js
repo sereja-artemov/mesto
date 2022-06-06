@@ -84,8 +84,7 @@ function openAvatarPopup() {
   popupAvatar.open();
 }
 
-function openPopupConfirm(element) {
-  popupWithSubmit.setSubmitHandler(delCard);
+function openPopupConfirm() {
   popupWithSubmit.open();
 }
 
@@ -104,17 +103,18 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   console.log(err);
 })
 
-const createCard = (data, cardSelector, userId, handleCardClick, openPopupConfirm, setLike, removeLike) => {
+const createCard = (data, cardSelector, userId, handleCardClick, handleDeleteCard, setLike, removeLike) => {
   const card = new Card(
     data,
     cardSelector,
     userId,
     handleCardClick,
-    openPopupConfirm,
+    handleDeleteCard,
     setLike,
     removeLike
   ).generateCard();
   return card;
+
 
 };
 
@@ -123,7 +123,7 @@ const cardsList = new Section(
   {
     items: initialCards,
     renderer: (element) => {
-      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, openPopupConfirm, setLike, removeLike);
+      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
       cardsList.addItemToEnd(card);
     }
   },
@@ -151,7 +151,7 @@ function addCard(formData) {
   api.sendNewCard(formData)
   .then((data) => {
     console.log(data);
-    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, openPopupConfirm, setLike, removeLike);
+    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
     console.log(newCard);
     cardsList.addItemToStart(newCard);
   })
@@ -179,10 +179,11 @@ function handleAvatarFormSubmit() {
   api.setUserAvatar(avatarLink);
 }
 
-function delCard(element) {
-  api.delCard(element._id)
+function handleDeleteCard(element) {
+  openPopupConfirm();
+  api.delCard(element)
   .then(() => {
-  card.deleteCard();
+    card.deleteCard();
   })
 }
 

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor(data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike) {
+  constructor(data, cardSelector, userId, handleCardClick, handleDeleteCard, setLike, removeLike) {
     this._data = data;
     this._cardId = data._id;
     this._userId = userId;
@@ -11,7 +11,7 @@ export default class Card {
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
-    this._delCard = delCard;
+    this._handleDeleteCard = handleDeleteCard;
   }
 
   _getTemplate() {
@@ -29,6 +29,12 @@ export default class Card {
     // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
     this._setEventListeners();
+
+    const trashBtn = this._element.querySelector('.cards__trash-btn');
+    if (this._ownerId !== this._userId) {
+      trashBtn.remove();
+    }
+
     // Добавим данные
     this._cardImage.setAttribute('src', this._link);
     this._cardImage.setAttribute('alt', this._name);
@@ -65,13 +71,12 @@ export default class Card {
       this._handleLikeBtn;
     });
 
-    //удаление карточки
-    const trashBtn = this._element.querySelector('.cards__trash-btn');
-
     if (this._userId === this._ownerId) {
-      trashBtn.addEventListener('click', this._delCard);
-    } else {
-      trashBtn.remove();
+      //удаление карточки
+      const trashBtn = this._element.querySelector('.cards__trash-btn');
+      trashBtn.addEventListener('click', () => {
+        this._handleDeleteCard(this._data);
+      });
     }
 
     //открытие окна с картинкой
