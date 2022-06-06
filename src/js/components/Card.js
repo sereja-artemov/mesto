@@ -59,19 +59,20 @@ export default class Card {
   }
 
   _handleLikeBtn() {
-    const likeCounter = this._element.querySelector('.cards__like-counter');
+
     if (this._likeItem.classList.contains('cards__like_active')) {
-      this._likeItem.classList.remove('cards__like_active');
-      likeCounter.textContent = this._likes.length -= 1;
+      // this._likeItem.classList.remove('cards__like_active');
+      // this._likeCounter.textContent = this._likes.length -= 1;
       this._removeLike(this._cardId);
     } else {
-      this._likeItem.classList.add('cards__like_active');
-      likeCounter.textContent = this._likes.length += 1;
+      // this._likeItem.classList.add('cards__like_active');
+      // this._likeCounter.textContent = this._likes.length += 1;
       this._setLike(this._cardId);
     }
   }
 
   _setEventListeners() {
+    this._likeCounter = this._element.querySelector('.cards__like-counter');
     this._likeItem = this._element.querySelector('.cards__like');
     //лайк карточки
     this._likeItem.addEventListener('click', () => {
@@ -88,7 +89,9 @@ export default class Card {
 
     //открытие окна с картинкой
     this._cardImage = this._element.querySelector('.cards__image');
-    this._cardImage.addEventListener('click', this._handleCardClick);
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._data);
+    });
   }
 
 }

@@ -12,8 +12,8 @@ import Api from '../js/components/Api.js';
 import {
   penBtn,
   popupEdit,
-  profileName,
-  profileAbout,
+  profileNameSelector,
+  profileAboutSelector,
   fieldName,
   fieldAbout,
   profileForm,
@@ -26,7 +26,7 @@ import {
   avatarLinkInput,
   avatarOverlay as avatarBtn,
   avatarForm,
-  avatarImg,
+  avatarImgSelector,
   popupConfirm,
   cardSelector,
   submitBtnPlace,
@@ -61,7 +61,11 @@ popupWithSubmit.setEventListeners();
 
 
 
-const userInfo = new UserInfo(profileName, profileAbout, avatarImg);
+const userInfo = new UserInfo({
+  userNameSelector: profileNameSelector,
+  userAboutSelector: profileAboutSelector,
+  userAvatarSelector: avatarImgSelector,
+});
 
 
 function openProfileEditPopup() {
@@ -81,8 +85,8 @@ function openPlacePopup() {
   popupPlaceForm.open();
 }
 //попап картинки
-function openPopupWidthImage() {
-  popupWithImage.open(event.target.alt, event.target.src);
+function openPopupWidthImage(data) {
+  popupWithImage.open(data.name, data.link);
 }
 
 function openAvatarPopup() {
@@ -214,6 +218,10 @@ function handleAvatarFormSubmit() {
 
 function setLike(data) {
   api.setLike(data)
+  .then(() => {
+    this._likeItem.classList.add('cards__like_active');
+    this._likeCounter.textContent = this._likes.length += 1;
+  })
   .catch((err) => {
     console.log(err);
   });
@@ -221,6 +229,10 @@ function setLike(data) {
 
 function removeLike(data) {
   api.removeLike(data)
+  .then(() => {
+    this._likeItem.classList.remove('cards__like_active');
+    this._likeCounter.textContent = this._likes.length -= 1;
+  })
   .catch((err) => {
     console.log(err);
   });
