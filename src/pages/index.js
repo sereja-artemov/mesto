@@ -23,7 +23,7 @@ import {
   popupCard,
   validationConfig,
   popupAvatar,
-  avatarLink,
+  avatarLinkInput,
   avatarOverlay as avatarBtn,
   avatarForm,
   avatarImg,
@@ -186,7 +186,17 @@ function handleProfileFormSubmit(formData) {
 }
 
 function handleAvatarFormSubmit() {
-  api.setUserAvatar(avatarLink);
+  api.setUserAvatar(avatarLinkInput.value)
+  .then((newAvatar) => {
+    userInfo.setUserInfo(newAvatar);
+    popupAvatarForm.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+
+  });
 }
 
 function setLike(data) {
