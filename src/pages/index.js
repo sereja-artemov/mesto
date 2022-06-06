@@ -104,19 +104,6 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   console.log(err);
 })
 
-// const createCard = (data, cardSelector, userId, handleCardClick, handleDeleteCard, setLike, removeLike) => {
-//   const card = new Card(
-//     data,
-//     cardSelector,
-//     userId,
-//     handleCardClick,
-//     handleDeleteCard,
-//     setLike,
-//     removeLike
-//   ).generateCard();
-//   return card;
-// };
-
 const renderer = (data) => {
   const card = new Card(
     data,
@@ -173,12 +160,10 @@ btnAdd.addEventListener('click', openPlacePopup);
 function addCard(formData) {
   api.sendNewCard(formData)
   .then((data) => {
-    // console.log(data);
+
     renderer(data);
-    // const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
     console.log(newCard);
-    // cardsList.addItemToStart(newCard);
-  })
+   })
   .catch((err) => {
     console.log(err);
   })
@@ -203,12 +188,22 @@ function handleAvatarFormSubmit() {
   api.setUserAvatar(avatarLink);
 }
 
-
-
 function setLike(data) {
-  api.setLike(data);
+  api.setLike(data)
+  .then(() => {
+
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 function removeLike(data) {
-  api.removeLike(data);
+  api.removeLike(data)
+  .then(() => {
+
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }
