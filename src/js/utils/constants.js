@@ -22,6 +22,8 @@ export const avatarOverlay = document.querySelector('.profile__avatar-overlay');
 export const submitBtnPlace = document.querySelector("#form__btn_type-place");
 export const submitBtnAbout = document.querySelector("#form__btn_type-about");
 export const submitBtnAvatar = document.querySelector("#form__btn_type-avatar");
+export const submitBtnSubmit = document.querySelector("#form__btn_type-submit");
+
 
 
 export const validationConfig = {

@@ -31,7 +31,8 @@ import {
   cardSelector,
   submitBtnPlace,
   submitBtnAbout,
-  submitBtnAvatar
+  submitBtnAvatar,
+  submitBtnSubmit
 } from '../js/utils/constants.js';
 
 
@@ -120,13 +121,15 @@ const renderer = (data) => {
 
   function handleDeleteCard(element) {
     popupWithSubmit.setSubmitHandler(() => {
+      loadingDataStatus(true, submitBtnSubmit);
       api.delCard(element)
-      .then(() => {
-        card.deleteCard();
-        popupWithSubmit.close();
-      })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        card.deleteCard();
+        popupWithSubmit.close();
+        loadingDataStatus(false, submitBtnSubmit);
       });
     })
     popupWithSubmit.open();
@@ -211,9 +214,6 @@ function handleAvatarFormSubmit() {
 
 function setLike(data) {
   api.setLike(data)
-  .then(() => {
-
-  })
   .catch((err) => {
     console.log(err);
   });
@@ -221,9 +221,6 @@ function setLike(data) {
 
 function removeLike(data) {
   api.removeLike(data)
-  .then(() => {
-
-  })
   .catch((err) => {
     console.log(err);
   });
