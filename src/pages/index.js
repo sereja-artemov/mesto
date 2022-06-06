@@ -24,12 +24,11 @@ import {
   validationConfig,
   popupAvatar,
   avatarLink,
-  avatarBtn,
+  avatarOverlay as avatarBtn,
   avatarForm,
   avatarImg,
   popupConfirm,
   cardSelector,
-  avatarOverlay
 } from '../js/utils/constants.js';
 
 
@@ -57,6 +56,7 @@ const popupWithSubmit = new PopupWithSubmit(popupConfirm);
 popupWithSubmit.setEventListeners();
 
 
+
 const userInfo = new UserInfo(profileName, profileAbout, avatarImg);
 
 
@@ -82,8 +82,8 @@ function openPopupWidthImage() {
 }
 
 function openAvatarPopup() {
-  avatarForm.resetValidation();
-  popupAvatar.open();
+  formAvatarValidator.resetValidation();
+  popupAvatarForm.open();
 }
 
 function openPopupConfirm() {
@@ -148,14 +148,14 @@ const formAvatarValidator = new FormValidator(validationConfig, avatarForm);
 
 formCardValidator.enableValidation();
 formProfileValidator.enableValidation();
-// avatarForm.enableValidation();
+formAvatarValidator.enableValidation();
 
 
 // открываем окно по клику на кнопку редактирования
 penBtn.addEventListener('click', openProfileEditPopup);
 // открываем окно по клику на кнопку добавления
 btnAdd.addEventListener('click', openPlacePopup);
-// avatarBtn.addEventListener('click', openAvatarPopup);
+avatarBtn.addEventListener('click', openAvatarPopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {

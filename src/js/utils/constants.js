@@ -13,7 +13,6 @@ export const placeForm = document.querySelector('#form_type_place');
 export const popupCard = document.querySelector('.popup-card');
 export const popupAvatar = document.querySelector('#popup-avatar');
 export const avatarLink = popupAvatar.querySelector('.form__item[id="avatar"]');
-export const avatarBtn = document.querySelector('.profile__avatar-btn');
 export const avatarForm = document.querySelector('#form_type_avatar');
 export const avatarImg = document.querySelector('.profile__img');
 export const popupConfirm = document.querySelector('#popup-confirm');
