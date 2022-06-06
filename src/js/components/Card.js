@@ -41,6 +41,11 @@ export default class Card {
     return this._element;
   }
 
+  deleteCard() {
+    this._element.remove();
+    this._element = null;
+  }
+
   _handleLikeBtn() {
     if (this._likeItem.classList.contains('.cards__like_active')) {
       this._likeItem.classList.remove('.cards__like_active');

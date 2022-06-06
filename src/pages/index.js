@@ -84,7 +84,8 @@ function openAvatarPopup() {
   popupAvatar.open();
 }
 
-function openPopupConfirm() {
+function openPopupConfirm(element) {
+  popupWithSubmit.setSubmitHandler(delCard);
   popupWithSubmit.open();
 }
 
@@ -103,17 +104,18 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   console.log(err);
 })
 
-const createCard = (data, cardSelector, userId, handleCardClick, delCard, setLike, removeLike) => {
+const createCard = (data, cardSelector, userId, handleCardClick, openPopupConfirm, setLike, removeLike) => {
   const card = new Card(
     data,
     cardSelector,
     userId,
     handleCardClick,
-    delCard,
+    openPopupConfirm,
     setLike,
     removeLike
   ).generateCard();
   return card;
+
 };
 
 //создаем класс section и добавляем карточки
@@ -177,8 +179,11 @@ function handleAvatarFormSubmit() {
   api.setUserAvatar(avatarLink);
 }
 
-function handleConfirmFormSubmit(data) {
-  api.delCard(data);
+function delCard(element) {
+  api.delCard(element._id)
+  .then(() => {
+  card.deleteCard();
+  })
 }
 
 function setLike(data) {
