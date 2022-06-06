@@ -29,6 +29,9 @@ import {
   avatarImg,
   popupConfirm,
   cardSelector,
+  submitBtnPlace,
+  submitBtnAbout,
+  submitBtnAvatar
 } from '../js/utils/constants.js';
 
 
@@ -86,10 +89,6 @@ function openAvatarPopup() {
   popupAvatarForm.open();
 }
 
-function openPopupConfirm() {
-  popupWithSubmit.open();
-}
-
 const initialCards = [];
 let userId = '';
 
@@ -120,15 +119,17 @@ const renderer = (data) => {
   cardsList.addItem(CardElement);
 
   function handleDeleteCard(element) {
-    openPopupConfirm();
-    api.delCard(element)
-    .then(() => {
-      card.deleteCard();
-      popupWithSubmit.close();
+    popupWithSubmit.setSubmitHandler(() => {
+      api.delCard(element)
+      .then(() => {
+        card.deleteCard();
+        popupWithSubmit.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    popupWithSubmit.open();
   }
 };
 
@@ -159,16 +160,17 @@ avatarBtn.addEventListener('click', openAvatarPopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {
+  loadingDataStatus(true, submitBtnPlace);
   api.sendNewCard(formData)
   .then((data) => {
 
     renderer(data);
-    console.log(newCard);
    })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
+    loadingDataStatus(false, submitBtnPlace);
     popupPlaceForm.close();
     placeForm.reset();
   })
@@ -178,14 +180,22 @@ function addCard(formData) {
 
 //Отправляем форму редактирования пользователя и обновляем данные
 function handleProfileFormSubmit(formData) {
+  loadingDataStatus(true, submitBtnAbout);
   api.sendUserInfo(formData)
   .then((data) => {
     userInfo.setUserInfo(data);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    loadingDataStatus(false, submitBtnAbout);
   });
   editProfileForm.close();
 }
 
 function handleAvatarFormSubmit() {
+  loadingDataStatus(true, submitBtnAvatar);
   api.setUserAvatar(avatarLinkInput.value)
   .then((newAvatar) => {
     userInfo.setUserInfo(newAvatar);
@@ -195,7 +205,7 @@ function handleAvatarFormSubmit() {
     console.log(err);
   })
   .finally(() => {
-
+    loadingDataStatus(false, submitBtnAvatar);
   });
 }
 
@@ -217,4 +227,14 @@ function removeLike(data) {
   .catch((err) => {
     console.log(err);
   });
+}
+
+function loadingDataStatus(isLoading, btn) {
+  if (isLoading) {
+    btn.value = "Происходит магия...";
+    btn.classList.add('form__btn_status_disabled');
+  } else {
+    btn.value = "Сохранить";
+    btn.classList.remove('form__btn_status_disabled');
+  }
 }
