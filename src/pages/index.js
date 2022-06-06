@@ -27,7 +27,8 @@ import {
   avatarBtn,
   avatarForm,
   avatarImg,
-  popupConfirm
+  popupConfirm,
+  cardSelector
 } from '../js/utils/constants.js';
 
 
@@ -95,7 +96,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
 .then((data) => {
   const [initialCards, userData] = data;
   userId = userData._id;
-  cardsList.renderItems(initialCards);
+  cardsList.renderItems(initialCards.reverse());
 
   userInfo.setUserInfo(userData);
 })
@@ -103,29 +104,51 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   console.log(err);
 })
 
-const createCard = (data, cardSelector, userId, handleCardClick, handleDeleteCard, setLike, removeLike) => {
+// const createCard = (data, cardSelector, userId, handleCardClick, handleDeleteCard, setLike, removeLike) => {
+//   const card = new Card(
+//     data,
+//     cardSelector,
+//     userId,
+//     handleCardClick,
+//     handleDeleteCard,
+//     setLike,
+//     removeLike
+//   ).generateCard();
+//   return card;
+// };
+
+const renderer = (data) => {
   const card = new Card(
     data,
     cardSelector,
     userId,
-    handleCardClick,
+    openPopupWidthImage,
     handleDeleteCard,
     setLike,
     removeLike
-  ).generateCard();
-  return card;
+  );
 
+  const CardElement = card.generateCard();
+  cardsList.addItem(CardElement);
 
+  function handleDeleteCard(element) {
+    openPopupConfirm();
+    api.delCard(element)
+    .then(() => {
+      card.deleteCard();
+      popupWithSubmit.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
 };
 
 //создаем класс section и добавляем карточки
 const cardsList = new Section(
   {
     items: initialCards,
-    renderer: (element) => {
-      const card = createCard(element, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
-      cardsList.addItemToEnd(card);
-    }
+    renderer
   },
   cardsContainerSelector
 );
@@ -150,10 +173,11 @@ btnAdd.addEventListener('click', openPlacePopup);
 function addCard(formData) {
   api.sendNewCard(formData)
   .then((data) => {
-    console.log(data);
-    const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
+    // console.log(data);
+    renderer(data);
+    // const newCard = createCard(data, '#cards__item', userId, openPopupWidthImage, handleDeleteCard, setLike, removeLike);
     console.log(newCard);
-    cardsList.addItemToStart(newCard);
+    // cardsList.addItemToStart(newCard);
   })
   .catch((err) => {
     console.log(err);
@@ -179,13 +203,7 @@ function handleAvatarFormSubmit() {
   api.setUserAvatar(avatarLink);
 }
 
-function handleDeleteCard(element) {
-  openPopupConfirm();
-  api.delCard(element)
-  .then(() => {
-    card.deleteCard();
-  })
-}
+
 
 function setLike(data) {
   api.setLike(data);
