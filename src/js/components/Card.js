@@ -24,7 +24,7 @@ export default class Card {
     return cardElement;
   }
 
-  generateCard() {
+  generateCard(data) {
     // Запишем разметку в приватное поле _element.
     // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
@@ -35,13 +35,13 @@ export default class Card {
       trashBtn.remove();
     }
     this.isLiked();
+    this.getLikesArr(data);
     // Добавим данные
     this._cardImage.setAttribute('src', this._link);
     this._cardImage.setAttribute('alt', this._name);
     const cardTitle = this._element.querySelector('.cards__title');
     cardTitle.textContent = this._name;
-    const likeCounter = this._element.querySelector('.cards__like-counter');
-    likeCounter.textContent = this._likes.length;
+    this._likeCounter.textContent = this._likes.length;
 
     // Вернём элемент наружу
     return this._element;
@@ -53,22 +53,29 @@ export default class Card {
   }
 
   isLiked() {
-    if (this._likes.some((like) => like._id === this._userId)) {
-      this._element.querySelector('.cards__like').classList.add('cards__like_active');
-    }
+    return (this._likes.some((like) => like._id === this._userId));
   }
 
   _handleLikeBtn() {
-
-    if (this._likeItem.classList.contains('cards__like_active')) {
-      // this._likeItem.classList.remove('cards__like_active');
-      // this._likeCounter.textContent = this._likes.length -= 1;
+    if (this.isLiked()) {
       this._removeLike(this._cardId);
     } else {
-      // this._likeItem.classList.add('cards__like_active');
-      // this._likeCounter.textContent = this._likes.length += 1;
       this._setLike(this._cardId);
     }
+  }
+
+  _updateLikesView() {
+    this._likeCounter.textContent = this._likes.length;
+    if (this.isLiked()) {
+        this._likeItem.classList.add('cards__like_active');
+    } else {
+        this._likeItem.classList.remove('cards__like_active');
+    }
+  }
+
+  getLikesArr(arr) {
+    this._likes = arr.likes;
+    this._updateLikesView();
   }
 
   _setEventListeners() {

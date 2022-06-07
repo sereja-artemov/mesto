@@ -116,7 +116,7 @@ const createCard = (data) => {
     removeLike
   );
 
-  return card.generateCard();
+  return card.generateCard(data);
 
   function handleDeleteCard(element) {
     popupWithSubmit.setSubmitHandler(() => {
@@ -216,9 +216,10 @@ function handleAvatarFormSubmit(InputValues) {
 
 function setLike(data) {
   api.setLike(data)
-  .then(() => {
-    this._likeItem.classList.add('cards__like_active');
-    this._likeCounter.textContent = this._likes.length += 1;
+  .then((newArrLikes) => {
+    this.getLikesArr(newArrLikes);
+    // this._likeItem.classList.add('cards__like_active');
+    // this._likeCounter.textContent = this._likes.length += 1;
   })
   .catch((err) => {
     console.log(err);
@@ -227,9 +228,10 @@ function setLike(data) {
 
 function removeLike(data) {
   api.removeLike(data)
-  .then(() => {
-    this._likeItem.classList.remove('cards__like_active');
-    this._likeCounter.textContent = this._likes.length -= 1;
+  .then((newArrLikes) => {
+    this.getLikesArr(newArrLikes);
+    // this._likeItem.classList.remove('cards__like_active');
+    // this._likeCounter.textContent = this._likes.length -= 1;
   })
   .catch((err) => {
     console.log(err);
