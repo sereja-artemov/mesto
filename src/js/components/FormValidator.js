@@ -14,11 +14,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-
-    this._formElement.addEventListener('submit', (evt) => {
-
-    });
-
     this._toggleButtonState();
     // Обойдём все элементы полученной коллекции
     this._setEventListeners();

@@ -1,11 +1,12 @@
 import Popup from './Popup.js';
 
 export default class PopupWithImage extends Popup {
-  constructor(popupElement) {
-    super(popupElement);
+  constructor(popupSelector) {
+    super(popupSelector);
+      this._popupElement = document.querySelector(this.popupSelector);
       //находим картинку и название в попапе, которые нужно заполнить
-      this._popupCardName = popupElement.querySelector('.popup-card__place-name');
-      this._popupCardImageItem = popupElement.querySelector('.popup-card__img');
+      this._popupCardName = this._popupElement.querySelector('.popup-card__place-name');
+      this._popupCardImageItem = this._popupElement.querySelector('.popup-card__img');
   }
   open(name, link) {
     this._popupCardName.textContent = name;

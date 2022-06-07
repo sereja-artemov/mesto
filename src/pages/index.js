@@ -218,8 +218,6 @@ function setLike(data) {
   api.setLike(data)
   .then((newArrLikes) => {
     this.getLikesArr(newArrLikes);
-    // this._likeItem.classList.add('cards__like_active');
-    // this._likeCounter.textContent = this._likes.length += 1;
   })
   .catch((err) => {
     console.log(err);
@@ -230,8 +228,6 @@ function removeLike(data) {
   api.removeLike(data)
   .then((newArrLikes) => {
     this.getLikesArr(newArrLikes);
-    // this._likeItem.classList.remove('cards__like_active');
-    // this._likeCounter.textContent = this._likes.length -= 1;
   })
   .catch((err) => {
     console.log(err);
