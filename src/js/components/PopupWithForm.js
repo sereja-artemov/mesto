@@ -6,6 +6,8 @@ export default class PopupWithForm extends Popup {
     this._form = popupElement.querySelector('form');
     this._inputList = this._form.querySelectorAll('.form__item');
     this._submitHandler = submitHandler;
+    this._submitBtn = this._popupElement.querySelector('.form__btn');
+    this._submitBtnValue = this._submitBtn.value;
   }
   _getInputValues() {
     // создаём пустой объект
@@ -19,6 +21,17 @@ export default class PopupWithForm extends Popup {
     // возвращаем объект значений
     return this._formValues;
   }
+
+  loadingDataStatus(isLoading) {
+    if (isLoading) {
+      this._submitBtn.value = "Происходит магия...";
+      this._submitBtn.classList.add('form__btn_status_disabled');
+    } else {
+      this._submitBtn.value = this._submitBtnValue;
+      this._submitBtn.classList.remove('form__btn_status_disabled');
+    }
+  }
+
   close() {
     super.close();
     this._form.reset();

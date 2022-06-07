@@ -17,6 +17,7 @@ export default class Popup {
       this.close();
     }
   }
+
   setEventListeners() {
       this._popupElement.addEventListener('mousedown', (event) => {
 

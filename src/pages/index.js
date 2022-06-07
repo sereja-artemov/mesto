@@ -23,16 +23,12 @@ import {
   popupCard,
   validationConfig,
   popupAvatar,
-  avatarLinkInput,
+  // avatarLinkInput,
   avatarOverlay as avatarBtn,
   avatarForm,
   avatarImgSelector,
   popupConfirm,
   cardSelector,
-  submitBtnPlace,
-  submitBtnAbout,
-  submitBtnAvatar,
-  submitBtnSubmit
 } from '../js/utils/constants.js';
 
 
@@ -109,8 +105,8 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
   console.log(err);
 })
 
-const renderer = (data) => {
-  const card = new Card(
+const createCard = (data) => {
+    const card = new Card(
     data,
     cardSelector,
     userId,
@@ -120,30 +116,34 @@ const renderer = (data) => {
     removeLike
   );
 
-  const CardElement = card.generateCard();
-  cardsList.addItem(CardElement);
+  return card.generateCard();
 
   function handleDeleteCard(element) {
     popupWithSubmit.setSubmitHandler(() => {
-      loadingDataStatus(true, submitBtnSubmit);
+      popupWithSubmit.loadingDataStatus(true);
       api.delCard(element)
+      .then(() => {
+        card.deleteCard();
+        popupWithSubmit.close();
+      })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        card.deleteCard();
-        popupWithSubmit.close();
-        loadingDataStatus(false, submitBtnSubmit);
+        popupWithSubmit.loadingDataStatus(false);
       });
     })
     popupWithSubmit.open();
   }
-};
+}
 
+const renderer = (data) => {
+  const card = createCard(data);
+  cardsList.addItem(card);
+};
 //создаем класс section и добавляем карточки
 const cardsList = new Section(
   {
-    items: initialCards,
     renderer
   },
   cardsContainerSelector
@@ -167,19 +167,17 @@ avatarBtn.addEventListener('click', openAvatarPopup);
 
 //Добавление новой карточки в начало
 function addCard(formData) {
-  loadingDataStatus(true, submitBtnPlace);
+  popupPlaceForm.loadingDataStatus(true);
   api.sendNewCard(formData)
   .then((data) => {
-
     renderer(data);
+    popupPlaceForm.close();
    })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    loadingDataStatus(false, submitBtnPlace);
-    popupPlaceForm.close();
-    placeForm.reset();
+    popupPlaceForm.loadingDataStatus(false);
   })
 
   formCardValidator.disableFormButton();
@@ -187,23 +185,23 @@ function addCard(formData) {
 
 //Отправляем форму редактирования пользователя и обновляем данные
 function handleProfileFormSubmit(formData) {
-  loadingDataStatus(true, submitBtnAbout);
+  editProfileForm.loadingDataStatus(true);
   api.sendUserInfo(formData)
   .then((data) => {
     userInfo.setUserInfo(data);
+    editProfileForm.close();
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    loadingDataStatus(false, submitBtnAbout);
+    editProfileForm.loadingDataStatus(false);
   });
-  editProfileForm.close();
 }
 
-function handleAvatarFormSubmit() {
-  loadingDataStatus(true, submitBtnAvatar);
-  api.setUserAvatar(avatarLinkInput.value)
+function handleAvatarFormSubmit(InputValues) {
+  popupAvatarForm.loadingDataStatus(true);
+  api.setUserAvatar(InputValues.avatar)
   .then((newAvatar) => {
     userInfo.setUserInfo(newAvatar);
     popupAvatarForm.close();
@@ -212,7 +210,7 @@ function handleAvatarFormSubmit() {
     console.log(err);
   })
   .finally(() => {
-    loadingDataStatus(false, submitBtnAvatar);
+    popupAvatarForm.loadingDataStatus(false);
   });
 }
 
@@ -236,14 +234,4 @@ function removeLike(data) {
   .catch((err) => {
     console.log(err);
   });
-}
-
-function loadingDataStatus(isLoading, btn) {
-  if (isLoading) {
-    btn.value = "Происходит магия...";
-    btn.classList.add('form__btn_status_disabled');
-  } else {
-    btn.value = "Сохранить";
-    btn.classList.remove('form__btn_status_disabled');
-  }
 }
